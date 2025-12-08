@@ -1,0 +1,3 @@
+[submodule "include/libf"]
+	path = include/libf
+	url = https://github.com/CristianBitca/libft.git
