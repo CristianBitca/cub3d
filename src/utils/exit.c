@@ -1,48 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbitca <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/08 18:20:29 by cbitca            #+#    #+#             */
-/*   Updated: 2025/12/08 18:20:31 by cbitca           ###   ########.fr       */
+/*   Created: 2025/12/10 14:43:06 by cbitca            #+#    #+#             */
+/*   Updated: 2025/12/10 14:43:08 by cbitca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-#define CUB3D_H
+#include "utils.h"
 
-// Include
-
-#include <stdio.h>
-#include "libft/include/libft.h"
-
-// Struct
-
-typedef struct s_element
+int	print_error(char *err)
 {
-	int	id;
-	char	data;
-	struct s_element	*next;
-}	t_element;
-
-typedef struct s_map
-{
-	t_element	*first;
-	char	**content;
-}	t_map;
-
-
-typedef struct s_game
-{
-	t_map	*map;
-}	t_game;
-
-// Function
-
-// init
-
-int	init_game(t_game *game, char *path);
-
-#endif
+	printf(ERR "%s", err);
+	return (1);
+}

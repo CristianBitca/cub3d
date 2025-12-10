@@ -11,9 +11,16 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "utils.h"
 
-int	main(void)
+int	main(int argc, char **argv)
 {
-	printf("Hello 42 C template\n");
-	return (0);
+	t_game	*game;
+
+	if (check_arg(argc, argv))
+		return (EXIT_FAILURE);
+	game = ft_calloc(sizeof(t_game), 1);
+	if (init_game(game, argv[1]))
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);	
 }

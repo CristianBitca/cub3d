@@ -1,48 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbitca <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/08 18:20:29 by cbitca            #+#    #+#             */
-/*   Updated: 2025/12/08 18:20:31 by cbitca           ###   ########.fr       */
+/*   Created: 2025/12/10 17:39:42 by cbitca            #+#    #+#             */
+/*   Updated: 2025/12/10 17:39:43 by cbitca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-#define CUB3D_H
+#include "cub3d.h"
+#include "parsing.h"
 
-// Include
-
-#include <stdio.h>
-#include "libft/include/libft.h"
-
-// Struct
-
-typedef struct s_element
+int	init_game(t_game *game, char *path)
 {
-	int	id;
-	char	data;
-	struct s_element	*next;
-}	t_element;
-
-typedef struct s_map
-{
-	t_element	*first;
-	char	**content;
-}	t_map;
-
-
-typedef struct s_game
-{
-	t_map	*map;
-}	t_game;
-
-// Function
-
-// init
-
-int	init_game(t_game *game, char *path);
-
-#endif
+	parse(game, path);
+	return (0);
+	(void)game;
+}
