@@ -20,10 +20,17 @@
 
 // Struct
 
+typedef enum e_type
+{
+	XPM,
+	RGB,
+}	t_type;
+
 typedef struct s_element
 {
 	int	id;
 	char	data;
+	t_type	type;
 	struct s_element	*next;
 }	t_element;
 
