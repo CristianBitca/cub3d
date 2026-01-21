@@ -20,6 +20,7 @@
 // Error message
 
 #define FILE_OPEN "Failed to open the file.\n"
+#define	XPM_FILE "Failed to open the file %s, to load %s\n"
 
 // Function
 
@@ -27,4 +28,12 @@
 
 int	parse(t_game *game, char *path);
 
+// parse_elem
+
+int	check_elem(char	*line);
+void	parse_rgb(int *p_elem, char **elem);
+void	parse_elem(t_game *game, char *line);
+void	parse_img(void *mlx, void **elem, char **path);
+
+// parse_map
 #endif

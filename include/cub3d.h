@@ -17,6 +17,7 @@
 
 #include <stdio.h>
 #include "libft/include/libft.h"
+#include "minilibx-linux/mlx.h"
 
 // Struct
 
@@ -29,11 +30,15 @@ typedef struct s_map
 	int		F;
 	int		C;
 	char	**content;
+	int		width;
+	int		height;
 }	t_map;
 
 
 typedef struct s_game
 {
+	void		*mlx;
+	void		*win;
 	t_map	*map;
 }	t_game;
 

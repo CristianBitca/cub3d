@@ -21,6 +21,6 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	game = ft_calloc(sizeof(t_game), 1);
 	if (init_game(game, argv[1]))
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);	
+		return (free(game), EXIT_FAILURE);
+	return (free(game), EXIT_SUCCESS);	
 }

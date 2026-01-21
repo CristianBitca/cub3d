@@ -15,5 +15,5 @@
 int	print_error(char *err)
 {
 	printf(ERR "%s", err);
-	return (1);
+	return (EXIT_FAILURE);
 }
