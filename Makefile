@@ -4,7 +4,7 @@
 
 # Compiler and flags
 CC          = cc
-CFLAGS      = -Wall -Wextra -Werror -fsanitize=address -g3 -O0
+CFLAGS      = -Wall -Wextra -Werror -fsanitize=address -g3 -O0 
 
 # Project name
 NAME        = cub3D

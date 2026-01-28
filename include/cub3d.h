@@ -30,6 +30,8 @@ typedef struct s_map
 	int		F;
 	int		C;
 	char	**content;
+	int		x;
+	int		y;
 	int		width;
 	int		height;
 }	t_map;
@@ -46,6 +48,6 @@ typedef struct s_game
 
 // init
 
-int	init_game(t_game *game, char *path);
+void	init_game(t_game *game, char *path);
 
 #endif

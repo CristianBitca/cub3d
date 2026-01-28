@@ -12,6 +12,7 @@
 
 #include "cub3d.h"
 #include "parsing.h"
+#include "utils.h"
 
 int	ft_render(t_game *game)
 {
@@ -32,14 +33,16 @@ int	ft_render(t_game *game)
 	return (EXIT_SUCCESS);
 }
 
-int	init_game(t_game *game, char *path)
+void	init_game(t_game *game, char *path)
 {
 	game->mlx = mlx_init();
+	if (!game->mlx)
+		exit_error(MLX);
 	game->map = ft_calloc(sizeof(t_map), 1);
+	if (!game->map)
+		exit_error(MAP);
 	parse(game, path);
 	game->win = mlx_new_window(game->mlx, 1920, 1080, "cub3D");
 	mlx_loop_hook(game->mlx, &ft_render, game);
 	mlx_loop(game->mlx);
-	free(game->mlx);
-	return (EXIT_SUCCESS);
 }

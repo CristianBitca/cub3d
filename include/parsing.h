@@ -19,8 +19,9 @@
 
 // Error message
 
-#define FILE_OPEN "Failed to open the file.\n"
-#define	XPM_FILE "Failed to open the file %s, to load %s\n"
+#define FILE_OPEN	"Failed to open the file.\n"
+#define	XPM_FILE	"Failed to open the file %s, to load %s\n"
+#define	EXTRA_ELEM	"Unused element %s located in %s\n"
 
 // Function
 

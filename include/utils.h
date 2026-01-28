@@ -17,14 +17,21 @@
 
 #include "cub3d.h"
 
-#define FORMAT ".cub"
+#define MAP_FORMAT	".cub"
+#define IMG_FORMAT	".xpm"
 
 // Error message
 
-#define ERR "Error\n"
-#define ARG_1 "Missing the argument, PATH to the map.\n"
-#define ARG_2 "The argumtent is not type .cub.\n"
-#define ARG_3 "Moo many arguments.\n"
+#define ERR			"Error\n"
+#define ARG_1		"Missing the argument, PATH to the map.\n"
+#define ARG_2		"The argumtent is not type .cub.\n"
+#define ARG_3		"Moo many arguments.\n"
+#define MLX			"Unable to initialize MLX\n"
+#define MAP			"Unable to allocate memory for map\n"
+#define IMG_EXT		"Image %s has from incompatible format(expeced .xpm)\n"
+#define RGB			"Element %s has wrong RGB value(%s)\n"
+#define MAP_ENTRY	"Too many starting points in the map\n"
+#define MAP_CHAR	"Unexpected character in the map\n"
 
 // Functions
 
@@ -32,6 +39,7 @@
 int	check_arg(int argc, char **argv);
 
 // exit
-int	print_error(char *err);
+void	error();
+int	exit_error(char *err);
 
 #endif

@@ -15,10 +15,10 @@
 int	check_arg(int argc, char **argv)
 {
 	if (argc < 2)
-		return (print_error(ARG_1));
+		return (printf(ARG_1));
 	if (argc > 2)
-		return (print_error(ARG_3));
-	if (ft_strncmp(&argv[1][ft_strlen(argv[1]) - 4], FORMAT, 4))
-		return (print_error(ARG_2));
-	return (0);
+		return (printf(ARG_3));
+	if (ft_strncmp(&argv[1][ft_strlen(argv[1]) - 4], MAP_FORMAT, 4))
+		return (printf(ARG_2));
+	return (EXIT_SUCCESS);
 }
