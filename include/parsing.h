@@ -25,6 +25,9 @@
 
 // Function
 
+#define MAP_CHARS	"01NSEW "
+#define ENTRY_CHARS	"NSEW"
+
 // parse
 
 int	parse(t_game *game, char *path);

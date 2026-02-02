@@ -12,39 +12,40 @@
 
 #include "utils.h"
 
-void	free_content(t_map *map)
+void	free_content(char **content)
 {
 	int	i;
 
 	i = 0;
-	while (i < map->height)
+	while (content[i])
 	{
-		free(map->content[i]);
+		free(content[i]);
+		i++;
 	}
-	free(map->content);
+	free(content);
 }
 
 void	parse_error(t_game *game, char *line, int fd)
 {
-	if (!line)
+	if (line)
 		free(line);
-	if (!fd)
+	if (fd)
 		close(fd);
-	if (!game->map)
+	if (game->map)
 	{
-		if (!game->map->NO)
+		if (game->map->NO)
 			mlx_destroy_image(game->mlx, game->map->NO);
-		if (!game->map->SO)
+		if (game->map->SO)
 			mlx_destroy_image(game->mlx, game->map->SO);
-		if (!game->map->EA)
+		if (game->map->EA)
 			mlx_destroy_image(game->mlx, game->map->EA);
-		if (!game->map->WE)
+		if (game->map->WE)
 			mlx_destroy_image(game->mlx, game->map->WE);
-		if (!game->map->content)
-			free_content(game->map);
+		if (game->map->content)
+			free_content(game->map->content);
+		free(game->map);
 	}
-	free(game->map);
-	if (!game->mlx)
+	if (game->mlx)
 		free(game->mlx);
 }
 

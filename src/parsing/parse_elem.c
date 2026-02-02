@@ -36,15 +36,12 @@ int	check_rgb(char	*line)
 
 void	parse_rgb(int *p_elem, char **elem)
 {
-	char	*tmp;
+	char	**tmp;
 	int		r;
 	int		g;
 	int		b;
 
-	tmp = elem[1];
-	elem[1] = ft_strtrim(elem[1], "\n\t");
-	free(tmp);
-	if (check_rgb(elem[1]))
+	if (!check_rgb(elem[1]))
 	{
 		(error(), printf(RGB, elem[0], elem[1]));
 		return ;
@@ -100,7 +97,8 @@ void	parse_elem(t_game *game, char *line)
 		parse_rgb(&game->map->C, element);
 	else
 		(error(), printf(EXTRA_ELEM, element[0], element[1]));
-	(free(element[0]), free(element[1]), free(element));
+	free_content(element);
+	free(line);
 }
 
 int	check_elem(char	*line)

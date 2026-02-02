@@ -37,9 +37,12 @@
 
 // error
 int	check_arg(int argc, char **argv);
+int	check_assets(t_map *map);
 
 // exit
 void	error();
 int	exit_error(char *err);
+void	free_content(char **content);
+void	parse_error(t_game *game, char *line, int fd);
 
 #endif

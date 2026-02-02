@@ -42,7 +42,7 @@ void	init_game(t_game *game, char *path)
 	if (!game->map)
 		exit_error(MAP);
 	parse(game, path);
-	game->win = mlx_new_window(game->mlx, 1920, 1080, "cub3D");
-	mlx_loop_hook(game->mlx, &ft_render, game);
-	mlx_loop(game->mlx);
+	// game->win = mlx_new_window(game->mlx, 1920, 1080, "cub3D");
+	// mlx_loop_hook(game->mlx, &ft_render, game);
+	// mlx_loop(game->mlx);
 }
