@@ -111,13 +111,13 @@ int	parse(t_game *game, char *path)
 	while (line)
 	{
 		if (!ft_strncmp(line, "\n", 2))
-			;
+			free(line);
 		else if (!check_elem(line))
 			parse_elem(game, line);
 		else if (!check_map(line))
 			parse_map(game, line, fd);
 		else if (line)
-			return (exit_error(ERR));;
+			return (exit_error(ERR));
 		line = ft_get_next_line(fd);
 	}
 	(free(line), close(fd));

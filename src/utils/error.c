@@ -25,17 +25,17 @@ int	check_arg(int argc, char **argv)
 
 int	check_assets(t_map *map)
 {
-	if (!map->C)
-		exit_error(NULL);
-	if (!map->F)
-		exit_error(NULL);
-	if (!map->EA)
-		exit_error(NULL);
+	// if (!map->C)
+	// 	exit_error(NULL);
+	// if (!map->F)
+	// 	exit_error(NULL);
+	// if (!map->EA)
+	// 	exit_error(NULL);
 	if (!map->NO)
 		exit_error(NULL);
-	if (!map->SO)
-		exit_error(NULL);
-	if (!map->WE)
-		exit_error(NULL);
+	// if (!map->SO)
+	// 	exit_error(NULL);
+	// if (!map->WE)
+	// 	exit_error(NULL);
 	return (EXIT_SUCCESS);
 }
