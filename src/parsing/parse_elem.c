@@ -41,7 +41,7 @@ void	parse_rgb(int *p_elem, char **elem)
 	int		g;
 	int		b;
 
-	if (!check_rgb(elem[1]))
+	if (check_rgb(elem[1]))
 	{
 		(error(), printf(RGB, elem[0], elem[1]));
 		return ;
@@ -55,6 +55,7 @@ void	parse_rgb(int *p_elem, char **elem)
 		|| !(0 <= b && 255 >= b))
 	{
 		(error(), printf(RGB, elem[0], elem[1]));
+		(free(tmp[0]), free(tmp[1]), free(tmp[2]), free(tmp));
 		return ;
 	}
 	*p_elem = (r << 16) | (g << 8) | b;
@@ -81,24 +82,27 @@ void	parse_img(void *mlx, void **p_elem, char **elem)
 void	parse_elem(t_game *game, char *line)
 {
 	char	**element;
+	char	*tmp;
 
 	element = ft_split(line, ' ');
+	tmp = element[1];
+	element[1] = ft_strtrim(element[1], "\n\t");
+	free(tmp);
 	if (!ft_strncmp("NO", element[0], 3))
-		parse_img(game->mlx, &game->map->NO, element);
+		parse_img(game->mlx, &game->asset->NO, element);
 	else if (!ft_strncmp("SO", element[0], 3))
-		parse_img(game->mlx, &game->map->SO, element);
+		parse_img(game->mlx, &game->asset->SO, element);
 	else if (!ft_strncmp("WE", element[0], 3))
-		parse_img(game->mlx, &game->map->WE, element);
+		parse_img(game->mlx, &game->asset->WE, element);
 	else if (!ft_strncmp("EA", element[0], 3))
-		parse_img(game->mlx, &game->map->EA, element);
+		parse_img(game->mlx, &game->asset->EA, element);
 	else if (!ft_strncmp("F", element[0], 2))
-		parse_rgb(&game->map->F, element);
+		parse_rgb(&game->asset->F, element);
 	else if (!ft_strncmp("C", element[0], 2))
-		parse_rgb(&game->map->C, element);
+		parse_rgb(&game->asset->C, element);
 	else
 		(error(), printf(EXTRA_ELEM, element[0], element[1]));
-	free_content(element);
-	free(line);
+	(free_content(element), free(line));
 }
 
 int	check_elem(char	*line)
@@ -111,7 +115,10 @@ int	check_elem(char	*line)
 		return (EXIT_FAILURE);
 	element = ft_split(line, ' ');
 	if (ft_strlen(element[0]) > 2)
+	{
+		(free(element[0]), free(element[1]), free(element));
 		return (EXIT_FAILURE);
+	}
 	(free(element[0]), free(element[1]), free(element));
 	return (EXIT_SUCCESS);
 }

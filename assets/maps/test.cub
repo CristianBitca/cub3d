@@ -1,7 +1,7 @@
-NO ./assets/u_wall.xpm
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
+NO ./assets/TECH_NO.xpm
+SO ./assets/TECH_SO.xpm
+WE ./assets/TECH_WE.xpm
+EA ./assets/TECH_EA.xpm
 
 F 255,255,255
 C 0,0,0
