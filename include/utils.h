@@ -49,13 +49,20 @@
 // Functions
 
 // error
+
 int		check_arg(int argc, char **argv);
 int		check_assets(t_asset *asset);
 
 // exit
+
 void	error();
 int		exit_error(char *err);
 void	free_content(char **content);
-void	parse_error(t_game *game, char *line, int fd);
+int	exit_game(t_game *game);
+int key_hook(int keycode, t_game *game);
+
+// debug_data
+
+void	data_preview(t_game *game);
 
 #endif

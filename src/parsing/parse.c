@@ -36,7 +36,7 @@ int	parse(t_game *game, char *path)
 		line = ft_get_next_line(fd);
 	}
 	(free(line), close(fd));
-	if (check_assets(game->asset))
-		exit_error(NULL);
+	// if (check_assets(game->asset))
+	// 	exit_error(NULL);
 	return (EXIT_SUCCESS);
 }

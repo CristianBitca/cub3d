@@ -12,20 +12,12 @@
 
 #include "cub3d.h"
 #include "parsing.h"
+#include "render.h"
 #include "utils.h"
-
-int	ft_render(t_game *game)
-{
-	mlx_put_image_to_window(game->mlx, game->win, game->asset->NO, 0, 0);
-	mlx_put_image_to_window(game->mlx, game->win, game->asset->SO, 64, 0);
-	mlx_put_image_to_window(game->mlx, game->win, game->asset->WE, 128, 0);
-	mlx_put_image_to_window(game->mlx, game->win, game->asset->EA, 192, 0);
-	return (EXIT_SUCCESS);
-}
 
 void	init_img(t_game *game, t_img *img)
 {
-	img->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	img->img = mlx_new_image(game->mlx, 1920, 1080);
 	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->line_len, &img->endian);
 }
 
@@ -62,16 +54,25 @@ void	init_data(t_game *game)
 	game->img = ft_calloc(sizeof(t_img), 1);
 	if (!game->img)
 		exit_error(IMG_MEM);
+	mlx_get_screen_size(game->mlx, &game->screen_width, &game->screen_height);
 }
 
 void	init_game(t_game *game, char *path)
 {
+	game->debug_mode = 0;
 	init_data(game);
 	parse(game, path);
 	init_player(game->player);
 	init_img(game, game->img);
-	// while (game->map)
-	// 	printf("%s\n", *game->map++);
-	mlx_loop_hook(game->mlx, &ft_render, game);
-	mlx_loop(game->mlx);
+	mlx_hook(game->win, CLOSE_ICON, 0, &exit_game, game);
+	mlx_key_hook(game->win, &key_hook, game);
+	if (game->debug_mode)
+	{
+		data_preview(game);
+	}
+	else
+	{
+		mlx_loop_hook(game->mlx, &render, game);
+		mlx_loop(game->mlx);
+	}
 }

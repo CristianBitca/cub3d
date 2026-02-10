@@ -25,44 +25,38 @@ void	free_content(char **content)
 	free(content);
 }
 
-void	parse_error(t_game *game, char *line, int fd)
+int key_hook(int keycode, t_game *game)
 {
-	if (line)
-		free(line);
-	if (fd)
-		close(fd);
+    if (keycode == ESC_KEY)
+        exit_game(game);
+    return (0);
+}
+
+int	exit_game(t_game *game)
+{
+	if (!game)
+		exit(0);
 	if (game->map)
 	{
-		if (game->map->NO)
-			mlx_destroy_image(game->mlx, game->map->NO);
-		if (game->map->SO)
-			mlx_destroy_image(game->mlx, game->map->SO);
-		if (game->map->EA)
-			mlx_destroy_image(game->mlx, game->map->EA);
-		if (game->map->WE)
-			mlx_destroy_image(game->mlx, game->map->WE);
-		if (game->map->content)
-			free_content(game->map->content);
-		free(game->map);
+		if (game->asset->NO)
+			mlx_destroy_image(game->mlx, game->asset->NO);
+		if (game->asset->SO)
+			mlx_destroy_image(game->mlx, game->asset->SO);
+		if (game->asset->EA)
+			mlx_destroy_image(game->mlx, game->asset->EA);
+		if (game->asset->WE)
+			mlx_destroy_image(game->mlx, game->asset->WE);
+		free_content(game->map);
 	}
-	if (game->mlx)
-		free(game->mlx);
+	if (game->img && game->img->img)
+		mlx_destroy_image(game->mlx, game->img->img);
+	if (game->win)
+		mlx_destroy_window(game->mlx, game->win);
+	free(game->asset);
+	free(game->player);
+	free(game->img);
+	free(game);
+	exit(EXIT_SUCCESS);
+	return (0);
 }
 
-void	error(void)
-{
-	static int	status;
-
-	if (!status)
-	{
-		printf(ERR);
-		status = 1;
-	}
-}
-
-int	exit_error(char *err)
-{
-	error();
-	printf("%s", err);
-	exit(EXIT_FAILURE);
-}

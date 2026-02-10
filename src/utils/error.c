@@ -12,6 +12,24 @@
 
 #include "utils.h"
 
+void	error(void)
+{
+	static int	status;
+
+	if (!status)
+	{
+		printf(ERR);
+		status = 1;
+	}
+}
+
+int	exit_error(char *err)
+{
+	error();
+	printf("%s", err);
+	exit(EXIT_FAILURE);
+}
+
 int	check_arg(int argc, char **argv)
 {
 	if (argc < 2)

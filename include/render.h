@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   render.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbitca <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/08 18:21:12 by cbitca            #+#    #+#             */
-/*   Updated: 2025/12/08 18:23:57 by cbitca           ###   ########.fr       */
+/*   Created: 2026/02/08 18:24:01 by cbitca            #+#    #+#             */
+/*   Updated: 2026/02/08 18:24:02 by cbitca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef RENDER_H
+#define RENDER_H
+
 #include "cub3d.h"
-#include "utils.h"
 
-int	main(int argc, char **argv)
-{
-	t_game	*game;
+#define TILE 32
+//render
 
-	if (check_arg(argc, argv))
-		return (EXIT_FAILURE);
-	game = ft_calloc(sizeof(t_game), 1);
-	if (!game)
-		return (EXIT_FAILURE);
-	init_game(game, argv[1]);
-	return (EXIT_SUCCESS);
-}
+int	render(t_game *game);
+
+#endif
