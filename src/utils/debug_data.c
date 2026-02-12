@@ -45,7 +45,7 @@ void	print_data_prev(void *mem, char *elem, t_data_type type)
 	else if (type == CHAR)
 		print_map((char **)mem);
 	else if (type == PLAYER)
-		print_player((t_player*)mem);
+		print_player((t_player *)mem);
 	else if (type == ASSET)
 		printf("asset exist\n");
 	else if (type == VOID)

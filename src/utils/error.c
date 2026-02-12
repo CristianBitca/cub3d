@@ -40,16 +40,3 @@ int	check_arg(int argc, char **argv)
 		return (printf(ARG_2));
 	return (EXIT_SUCCESS);
 }
-
-int	check_assets(t_asset *asset)
-{
-	if (!asset->EA)
-		exit_error(NULL);
-	if (!asset->NO)	
-		exit_error(NULL);
-	if (!asset->SO)
-		exit_error(NULL);
-	if (!asset->WE)
-		exit_error(NULL);
-	return (EXIT_SUCCESS);
-}

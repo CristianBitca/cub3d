@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "render.h"
 #include "utils.h"
 
 int	main(int argc, char **argv)
@@ -23,5 +24,6 @@ int	main(int argc, char **argv)
 	if (!game)
 		return (EXIT_FAILURE);
 	init_game(game, argv[1]);
+	exit_game(game);
 	return (EXIT_SUCCESS);
 }

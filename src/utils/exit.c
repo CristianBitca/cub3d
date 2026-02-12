@@ -25,11 +25,20 @@ void	free_content(char **content)
 	free(content);
 }
 
-int key_hook(int keycode, t_game *game)
+void	free_img(t_game *game, t_img **img)
 {
-    if (keycode == ESC_KEY)
-        exit_game(game);
-    return (0);
+	if ((*img)->img)
+		mlx_destroy_image(game->mlx, (*img)->img);
+	(void)game;
+}
+
+int	key_hook(int keycode, t_game *game)
+{
+	if (keycode == ESC_KEY)
+		exit_game(game);
+	if (keycode == M_KEY)
+		game->debug_mode = !game->debug_mode;
+	return (0);
 }
 
 int	exit_game(t_game *game)
@@ -37,26 +46,24 @@ int	exit_game(t_game *game)
 	if (!game)
 		exit(0);
 	if (game->map)
-	{
-		if (game->asset->NO)
-			mlx_destroy_image(game->mlx, game->asset->NO);
-		if (game->asset->SO)
-			mlx_destroy_image(game->mlx, game->asset->SO);
-		if (game->asset->EA)
-			mlx_destroy_image(game->mlx, game->asset->EA);
-		if (game->asset->WE)
-			mlx_destroy_image(game->mlx, game->asset->WE);
 		free_content(game->map);
-	}
 	if (game->img && game->img->img)
 		mlx_destroy_image(game->mlx, game->img->img);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
+	free_img(game, &game->asset->EA);
+	free(game->asset->EA);
+	free_img(game, &game->asset->WE);
+	free(game->asset->WE);
+	free_img(game, &game->asset->SO);
+	free(game->asset->SO);
+	free_img(game, &game->asset->NO);
+	free(game->asset->NO);
 	free(game->asset);
 	free(game->player);
 	free(game->img);
+	free(game->key);
 	free(game);
 	exit(EXIT_SUCCESS);
 	return (0);
 }
-

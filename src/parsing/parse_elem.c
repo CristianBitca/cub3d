@@ -62,7 +62,7 @@ void	parse_rgb(int *p_elem, char **elem)
 	(free(tmp[0]), free(tmp[1]), free(tmp[2]), free(tmp));
 }
 
-void	parse_img(void *mlx, void **p_elem, char **elem)
+void	parse_img(t_game *game, t_img **img, char **elem)
 {
 	int		width;
 	int		height;
@@ -70,11 +70,18 @@ void	parse_img(void *mlx, void **p_elem, char **elem)
 
 	width = 0;
 	height = 0;
+	*img = ft_calloc(sizeof(t_img), 1);
+	if (!*img)
+		exit_error(IMG_MEM);
 	tmp = ft_strtrim(elem[1], "\n\t");
 	if (ft_strncmp(&tmp[ft_strlen(tmp) - 4], IMG_FORMAT, 4))
-		(error(), printf(IMG_EXT, elem[0]));
-	*p_elem = mlx_xpm_file_to_image(mlx, tmp, &width, &height);
-	if (!*p_elem)
+		return ((void)(error(), printf(IMG_EXT, elem[0]), free(tmp)));
+	(*img)->img = mlx_xpm_file_to_image(game->mlx, tmp, &width, &height);
+	if (!(*img)->img)
+		(error(), printf(XPM_FILE, tmp, elem[0]));
+	(*img)->addr = mlx_get_data_addr((*img)->img,
+			&(*img)->bpp, &(*img)->line_len, &(*img)->endian);
+	if (!(*img)->addr)
 		(error(), printf(XPM_FILE, tmp, elem[0]));
 	free(tmp);
 }
@@ -88,20 +95,18 @@ void	parse_elem(t_game *game, char *line)
 	tmp = element[1];
 	element[1] = ft_strtrim(element[1], "\n\t");
 	free(tmp);
-	// if (!ft_strncmp("NO", element[0], 3))
-	// 	parse_img(game->mlx, &game->asset->NO->img, element);
-	// else if (!ft_strncmp("SO", element[0], 3))
-	// 	parse_img(game->mlx, &game->asset->SO->img, element);
-	// else if (!ft_strncmp("WE", element[0], 3))
-	// 	parse_img(game->mlx, &game->asset->WE->img, element);
-	// else if (!ft_strncmp("EA", element[0], 3))
-	// 	parse_img(game->mlx, &game->asset->EA->img, element);
-	// else if (!ft_strncmp("F", element[0], 2))
-	// 	parse_rgb(&game->asset->F, element);
-	// else if (!ft_strncmp("C", element[0], 2))
-	// 	parse_rgb(&game->asset->C, element);
-	// else
-	// 	(error(), printf(EXTRA_ELEM, element[0], element[1]));
+	if (!ft_strncmp("NO", element[0], 3))
+		parse_img(game, &game->asset->NO, element);
+	else if (!ft_strncmp("SO", element[0], 3))
+		parse_img(game, &game->asset->SO, element);
+	else if (!ft_strncmp("WE", element[0], 3))
+		parse_img(game, &game->asset->WE, element);
+	else if (!ft_strncmp("EA", element[0], 3))
+		parse_img(game, &game->asset->EA, element);
+	else if (!ft_strncmp("F", element[0], 2))
+		parse_rgb(&game->asset->F, element);
+	else if (!ft_strncmp("C", element[0], 2))
+		parse_rgb(&game->asset->C, element);
 	(free_content(element), free(line));
 	(void)game;
 }

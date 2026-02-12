@@ -35,7 +35,8 @@ typedef enum e_key_code
 	W_KEY = 119,
 	A_KEY = 97,
 	S_KEY = 115,
-	D_KEY = 100
+	D_KEY = 100,
+	M_KEY = 109
 }	t_key_code;
 
 typedef	enum e_data_type
@@ -68,7 +69,6 @@ typedef struct s_player
     double  dir_y;
     double  plane_x;
     double  plane_y;
-	int		orientation;
 }	t_player;
 
 typedef struct	s_ray
@@ -133,6 +133,7 @@ typedef struct s_game
 // init
 
 void	init_game(t_game *game, char *path);
+void	init_img(t_game *game, t_img *img);
 
 // init_assets
 

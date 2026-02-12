@@ -29,14 +29,12 @@ int	parse(t_game *game, char *path)
 			free(line);
 		else if (!check_elem(line))
 			parse_elem(game, line);
-		else if (!check_map(line))
+		else if (!check_map(line, 0))
 			parse_map(game, line, fd);
 		else if (line)
 			return (exit_error(ERR));
 		line = ft_get_next_line(fd);
 	}
 	(free(line), close(fd));
-	// if (check_assets(game->asset))
-	// 	exit_error(NULL);
 	return (EXIT_SUCCESS);
 }
