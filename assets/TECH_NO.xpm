@@ -1,7 +1,7 @@
 /* XPM */
 static char *ab9a770e656641e0f976c58fd7abf2725AypyTK0UOrioBTB[] = {
 /* columns rows colors chars-per-pixel */
-"64 64 11 1 ",
+"32 32 11 1 ",
 "  c black",
 ". c #141413",
 "X c #1C1C1B",
@@ -12,7 +12,7 @@ static char *ab9a770e656641e0f976c58fd7abf2725AypyTK0UOrioBTB[] = {
 "# c #464D4F",
 "$ c #536265",
 "% c #62797E",
-"& c #259f15ff",
+"& c #259f15",
 /* pixels */
 "                                                                ",
 "#############@#@##########@#@#@############################@#@##",

@@ -44,9 +44,9 @@ void	render_map(t_game *game)
 		while (game->map[y][x])
 		{
 			if (game->map[y][x] == '1')
-				render_cell(game, x * TILE, y * TILE, game->asset->F);
+				render_cell(game, x * TILE, y * TILE, WHITE);
 			else if (game->map[y][x] == '0')
-				render_cell(game, x * TILE, y * TILE, game->asset->C);
+				render_cell(game, x * TILE, y * TILE, BLACK);
 			x++;
 		}
 		y++;
@@ -68,7 +68,7 @@ void	render_player(t_game *game)
 		x = -3;
 		while (x <= 3)
 		{
-			put_pixel(game->img, px + x, py + y, 0xEF1515);
+			put_pixel(game->img, px + x, py + y, RED);
 			x++;
 		}
 		y++;

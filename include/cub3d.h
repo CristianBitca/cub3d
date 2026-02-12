@@ -22,6 +22,14 @@
 
 // Struct
 
+typedef enum e_colors
+{
+	RED = 0xFF0000,
+	GREEN = 0x00FF00,
+	WHITE = 0xFFFFFF,
+	BLACK = 0x000000
+}	t_clors;
+
 typedef enum e_key_code
 {
 	CLOSE_ICON = 17,
@@ -86,6 +94,22 @@ typedef struct	s_ray
 	double perp_wall_dist;
 	int side; // 0 = vertical, 1 = horizontal
 }	t_ray;
+
+typedef	struct	s_line
+{
+	int	x0;
+	int	y0;
+	int	x1;
+	int	y1;
+	int	dx;
+	int	dy;
+	int	sx;
+	int	sy;
+	int	err;
+	int	e2;
+	int	color;
+}	t_line;
+
 
 typedef	struct	s_key
 {
