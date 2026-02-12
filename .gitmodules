@@ -1,6 +1,7 @@
 [submodule "include/libft"]
 	path = include/libft
-	url = https://github.com/CristianBitca/libft
+	url = https://github.com/CristianBitca/libft.git
+	branch = main
 [submodule "include/minilibx-linux"]
 	path = include/minilibx-linux
 	url = https://github.com/42paris/minilibx-linux.git
