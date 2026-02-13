@@ -90,6 +90,6 @@ int	debug_mode(t_game *game)
 {	
 	render_map(game);
 	render_player(game);
-	//render_ray(game);
+	// render_ray(game);
 	return (EXIT_SUCCESS);
 }
