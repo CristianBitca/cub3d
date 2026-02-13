@@ -106,7 +106,7 @@ typedef	struct	s_line
 	int	sx;
 	int	sy;
 	int	err;
-	int	e2;
+	int	err2;
 	int	color;
 }	t_line;
 
@@ -161,4 +161,5 @@ void	init_img(t_game *game, t_img *img);
 
 // init_assets
 
+t_line	*init_line(t_player *player, int x1, int y1, int color);
 #endif

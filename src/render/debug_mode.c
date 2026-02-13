@@ -57,22 +57,17 @@ void	render_player(t_game *game)
 {
 	int	px;
 	int	py;
-	int	x;
-	int	y;
+	int	end_x;
+	int	end_y;
+	t_line	*line;
 
 	px = game->player->x * TILE;
 	py = game->player->y * TILE;
-	y = -3;
-	while (y <= 3)
-	{
-		x = -3;
-		while (x <= 3)
-		{
-			put_pixel(game->img, px + x, py + y, RED);
-			x++;
-		}
-		y++;
-	}
+	end_x = px + game->player->dir_x * 20;
+	end_y = py + game->player->dir_y * 20;
+	draw_player(game->img, game->player);
+	line = init_line(game->player, end_x, end_y, RED);
+	draw_line(game->img, line);
 }
 
 void	render_ray(t_game *game)

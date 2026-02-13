@@ -56,7 +56,10 @@ void	init_data(t_game *game)
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		exit_error(MLX_MLX);
-	game->win = mlx_new_window(game->mlx, 1920, 1080, "cub3D");
+	mlx_get_screen_size(game->mlx, &game->screen_width, &game->screen_height);
+	if (game->screen_width == 0 && game->screen_height == 0)
+		exit_error(SCREEN_SIZE);
+	game->win = mlx_new_window(game->mlx, game->screen_width, game->screen_height, "cub3D");
 	if (!game->win)
 		exit_error(MLX_WIN);
 	game->asset = ft_calloc(sizeof(t_asset), 1);
@@ -71,9 +74,6 @@ void	init_data(t_game *game)
 	game->img = ft_calloc(sizeof(t_img), 1);
 	if (!game->img)
 		exit_error(IMG_MEM);
-	mlx_get_screen_size(game->mlx, &game->screen_width, &game->screen_height);
-	if (game->map_width != 0 && game->map_height != 0)
-		exit_error(SCREEN_SIZE);
 	game->move_speed = 0.6;
 	game->rot_speed = 0.6;
 }

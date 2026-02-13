@@ -15,7 +15,7 @@
 
 #include "cub3d.h"
 
-#define TILE 32
+#define TILE 48
 
 //render
 
@@ -25,5 +25,10 @@ void put_pixel(t_img *img, int x, int y, int color);
 //debug_mode
 
 int	debug_mode(t_game *game);
+
+//utility
+
+void	draw_line(t_img *img, t_line *line);
+void	draw_player(t_img *img, t_player *player);
 
 #endif
