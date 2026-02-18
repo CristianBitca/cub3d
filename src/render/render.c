@@ -42,7 +42,10 @@ void	clear_img(t_game *game)
 
 int	render(t_game *game)
 {
+	game->old_time = game->time;
+	game->time = get_time();
 	clear_img(game);
+	handle_move(game);
 	if (game->debug_mode)
 		debug_mode(game);
 	else

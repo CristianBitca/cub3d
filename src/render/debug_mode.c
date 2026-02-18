@@ -55,10 +55,10 @@ void	render_map(t_game *game)
 
 void	render_player(t_game *game)
 {
-	int	px;
-	int	py;
-	int	end_x;
-	int	end_y;
+	int		px;
+	int		py;
+	int		end_x;
+	int		end_y;
 	t_line	*line;
 
 	px = game->player->x * TILE;
@@ -72,24 +72,28 @@ void	render_player(t_game *game)
 
 void	render_ray(t_game *game)
 {
+	t_ray	*ray;
+	t_line	*line;
 	int		i;
-	double	camera_x;
-	double	ray_dir_x;
-	double	ray_dir_y;
 
 	i = 0;
-	while (i < 64)
+	while (i < game->screen_width)
 	{
-		camera_x = 2 * i / 64.0 - 1;
-		ray_dir_x = game->player->dir_x + game->player->plane_x * camera_x;
-		ray_dir_y = game->player->dir_y + game->player->plane_y * camera_x;
+		init_ray(&ray, game->player, i, game->screen_width);
+		calculate_step_and_side_dist(ray, game->player);
+		dda(ray, game->map);
+		calculate_perp_dist(ray, game->player);
+		init_ray_line(&line, ray, game->player);
+		draw_line(game->img, line);
+		i += 10;
+		free(ray);
 	}
 }
 
 int	debug_mode(t_game *game)
-{	
+{
 	render_map(game);
+	render_ray(game);
 	render_player(game);
-	// render_ray(game);
 	return (EXIT_SUCCESS);
 }

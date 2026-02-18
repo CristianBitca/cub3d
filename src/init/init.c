@@ -17,6 +17,10 @@
 
 void	init_img(t_game *game, t_img *img)
 {
+	game->win = mlx_new_window(game->mlx, game->screen_width,
+			game->screen_height, "cub3D");
+	if (!game->win)
+		exit_error(MLX_WIN);
 	img->img = mlx_new_image(game->mlx,
 			game->screen_width, game->screen_height);
 	img->addr = mlx_get_data_addr(img->img,
@@ -47,8 +51,8 @@ void	init_player(t_game *game, t_player *player)
 	}
 	player->y += 0.5;
 	player->x += 0.5;
-	player->plane_y = player->dir_y * 0.66;
-	player->plane_x = -player->dir_x * 0.66;
+	player->plane_x = -player->dir_y * 0.66;
+	player->plane_y = player->dir_x * 0.66;
 }
 
 void	init_data(t_game *game)
@@ -59,9 +63,6 @@ void	init_data(t_game *game)
 	mlx_get_screen_size(game->mlx, &game->screen_width, &game->screen_height);
 	if (game->screen_width == 0 && game->screen_height == 0)
 		exit_error(SCREEN_SIZE);
-	game->win = mlx_new_window(game->mlx, game->screen_width, game->screen_height, "cub3D");
-	if (!game->win)
-		exit_error(MLX_WIN);
 	game->asset = ft_calloc(sizeof(t_asset), 1);
 	if (!game->asset)
 		exit_error(ASSET_MEM);
@@ -85,7 +86,8 @@ void	init_game(t_game *game, char *path)
 	init_player(game, game->player);
 	init_img(game, game->img);
 	mlx_hook(game->win, CLOSE_ICON, 0, &exit_game, game);
-	mlx_key_hook(game->win, &key_hook, game);
+	mlx_hook(game->win, KEY_PRESS, 1L << 0, &key_press, game);
+	mlx_hook(game->win, KEY_RELEASE, 1L << 1, &key_release, game);
 	mlx_loop_hook(game->mlx, &render, game);
 	data_preview(game);
 	game->debug_mode = 1;
