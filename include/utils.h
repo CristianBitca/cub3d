@@ -37,6 +37,7 @@
 
 #define	ASSET_MEM	"Unable to initialize memory for assets data\n"
 #define ASSET_MAP	"Unable to allocate memory for map\n"
+#define ASSET_CHECK	"Occured erros while parsing assets\n"
 
 #define PLAYER_MEM	"Unable to initialize memory for player data\n"
 
@@ -56,6 +57,7 @@
 // error
 
 int		check_arg(int argc, char **argv);
+int	check_parse(t_asset *assets);
 
 // exit
 

@@ -19,6 +19,7 @@
 #include "libft/include/libft.h"
 #include "minilibx-linux/mlx.h"
 #include "math.h"
+#include <sys/time.h>
 
 // Struct
 
@@ -162,4 +163,9 @@ void	init_img(t_game *game, t_img *img);
 // init_assets
 
 t_line	*init_line(t_player *player, int x1, int y1, int color);
+void	init_ray(t_ray **ray, t_player *player, int i, double width);
+void	calculate_step_and_side_dist(t_ray *ray, t_player *player);
+void calculate_perp_dist(t_ray *ray, t_player *player);
+void	init_ray_line(t_line **line, t_ray *ray, t_player *player);
+
 #endif
