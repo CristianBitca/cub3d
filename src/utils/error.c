@@ -40,3 +40,16 @@ int	check_arg(int argc, char **argv)
 		return (printf(ARG_2));
 	return (EXIT_SUCCESS);
 }
+
+int	check_parse(t_asset *assets)
+{
+	if (!assets->EA->img)
+		exit_error(ASSET_CHECK);
+	if (!assets->SO->img)
+		exit_error(ASSET_CHECK);
+	if (!assets->NO->img)
+		exit_error(ASSET_CHECK);
+	if (!assets->WE->img)
+		exit_error(ASSET_CHECK);
+	return (EXIT_SUCCESS);
+}
