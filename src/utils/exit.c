@@ -32,15 +32,6 @@ void	free_img(t_game *game, t_img **img)
 	(void)game;
 }
 
-int	key_hook(int keycode, t_game *game)
-{
-	if (keycode == ESC_KEY)
-		exit_game(game);
-	if (keycode == M_KEY)
-		game->debug_mode = !game->debug_mode;
-	return (0);
-}
-
 int	exit_game(t_game *game)
 {
 	if (!game)
