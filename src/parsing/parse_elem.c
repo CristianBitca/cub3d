@@ -78,11 +78,11 @@ void	parse_img(t_game *game, t_img **img, char **elem)
 		return ((void)(error(), printf(IMG_EXT, elem[0]), free(tmp)));
 	(*img)->img = mlx_xpm_file_to_image(game->mlx, tmp, &width, &height);
 	if (!(*img)->img)
-		(error(), printf(XPM_FILE, tmp, elem[0]));
+		return ((void)(error(), printf(XPM_FILE, tmp, elem[0])));
 	(*img)->addr = mlx_get_data_addr((*img)->img,
 			&(*img)->bpp, &(*img)->line_len, &(*img)->endian);
 	if (!(*img)->addr)
-		(error(), printf(XPM_FILE, tmp, elem[0]));
+		return ((void)(error(), printf(XPM_FILE, tmp, elem[0])));
 	free(tmp);
 }
 
