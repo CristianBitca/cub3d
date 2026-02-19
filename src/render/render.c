@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbitca <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: tyamano <tyamano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/08 18:24:18 by cbitca            #+#    #+#             */
-/*   Updated: 2026/02/08 18:24:19 by cbitca           ###   ########.fr       */
+/*   Updated: 2026/02/19 20:06:17 by tyamano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	render(t_game *game)
 	game->time = get_time();
 	clear_img(game);
 	handle_move(game);
+	// raycast(game);
 	if (game->debug_mode)
 		debug_mode(game);
 	else

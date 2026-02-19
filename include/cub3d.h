@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbitca <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: tyamano <tyamano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 18:20:29 by cbitca            #+#    #+#             */
-/*   Updated: 2025/12/08 18:20:31 by cbitca           ###   ########.fr       */
+/*   Updated: 2026/02/19 20:42:58 by tyamano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,9 @@ typedef struct	s_ray
 	int		step_y;
 	int 	map_x;
 	int		map_y;
-	double perp_wall_dist;
-	int side; // 0 = vertical, 1 = horizontal
+	double 	perp_wall_dist;
+	int		hit;
+	int 	side; // 0 = vertical, 1 = horizontal
 }	t_ray;
 
 typedef	struct	s_line
