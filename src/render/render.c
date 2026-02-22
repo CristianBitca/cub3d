@@ -44,13 +44,14 @@ int	render(t_game *game)
 {
 	game->old_time = game->time;
 	game->time = get_time();
-	clear_img(game);
 	handle_move(game);
-	// raycast(game);
+	// clear_img(game);  // instead of clearing the background to 0x000000, put ceiling and floor color
+	draw_floor_and_ceiling(game);
+	raycast(game);
 	if (game->debug_mode)
 		debug_mode(game);
-	else
-		clear_img(game);
+	// else
+	// 	clear_img(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img->img, 0, 0);
 	return (EXIT_SUCCESS);
 }

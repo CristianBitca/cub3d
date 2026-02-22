@@ -68,6 +68,8 @@ typedef	struct s_img
     int     bpp;
     int     line_len;
     int     endian;
+	int		width;
+	int		height;
 }	t_img;
 
 typedef struct s_player
@@ -95,6 +97,15 @@ typedef struct	s_ray
 	double 	perp_wall_dist;
 	int		hit;
 	int 	side; // 0 = vertical, 1 = horizontal
+	int		draw_start;
+	int		draw_end;
+	int		line_height;
+	int		tex_x;
+	int		tex_y;
+	double	wall_x;
+	double	step;
+	double	tex_pos;
+	t_img	*texture;
 }	t_ray;
 
 typedef	struct	s_line

@@ -14,36 +14,21 @@
 #include "render.h"
 #include "parsing.h"
 
-void	draw_wall_stripe(t_game, *game, t_ray *ray, int *draw_start, int *draw_end)
+void	calculate_wall(t_game *game, t_ray *ray)
 {
-	int	y;
-
-	y = *draw_start;
-	while (y < *draw_end)
-	{
-		if (ray->side == 0)
-			put_pixel(game->img, x, y, RED);
-		else
-			put_pixel(game->img, x, y, GREEN);
-		y++;
-	}
-}
-
-void	get_dist_and_height(t_game *game, t_ray *ray, int *draw_start, int *draw_end)
-{
-	int	line_height;
-
 	if (ray->side == 0)
-		ray->perp_wall_dist = (ray->map_x - game->player->x + (1 - ray->step_x) / 2) / ray->dir_x;
+		ray->perp_wall_dist = (ray->map_x - game->player->x+ (1 - ray->step_x) / 2) / ray->dir_x;
 	else
 		ray->perp_wall_dist = (ray->map_y - game->player->y + (1 - ray->step_y) / 2) / ray->dir_y;
-	line_height = (int)(game->screen_height / ray.perp_wall_dist);
-	*draw_start = -line_height / 2 + game->screen_height / 2;
-	if (*draw_start < 0)
-		*draw_start = 0;
-	*draw_end = line_height / 2 + game->screen_height / 2;
-	if (*draw_end >= game->screen_height)
-		*draw_end = game->screen_height - 1;
+	if (ray->perp_wall_dist < 0.0001)
+		ray->perp_wall_dist = 0.0001;
+	ray->line_height = (int)(game->screen_height / ray->perp_wall_dist);
+	ray->draw_start = -ray->line_height / 2 + game->screen_height / 2;
+	if (ray->draw_start < 0)
+		ray->draw_start = 0;
+	ray->draw_end = ray->line_height / 2 + game->screen_height / 2;
+	if (ray->draw_end >= game->screen_height)
+		ray->draw_end = game->screen_height - 1;
 }
 
 void	perform_dda(t_game *game, t_ray *ray)
@@ -113,20 +98,20 @@ void	init_ray(t_game *game, int x, t_ray *ray)
 	get_initial_side_dist(game, ray);
 }
 
+
 void	raycast(t_game *game)
 {
-	int 	x;
+	int		x;
 	t_ray	ray;
-	int		draw_start;
-	int		draw_end;
-	
-	x = -1;
-	while (++x < game->screen_width)
+
+	x = 0;
+	while (x < game->screen_width)
 	{
 		init_ray(game, x, &ray);
 		perform_dda(game, &ray);
-		get_dist_and_height(game, &ray, &draw_start, &draw_end);
-		draw_wall_stripe(game, &ray, &draw_start, &draw_end);
+		calculate_wall(game, &ray);
+		calculate_texture(game, &ray);
+		draw_vertical_line(game, &ray, x);
 		x++;
 	}
 }
