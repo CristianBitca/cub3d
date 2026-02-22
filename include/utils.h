@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbitca <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: tyamano <tyamano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 14:32:40 by cbitca            #+#    #+#             */
-/*   Updated: 2025/12/10 14:32:41 by cbitca           ###   ########.fr       */
+/*   Updated: 2026/02/22 20:00:20 by tyamano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,7 @@ int key_hook(int keycode, t_game *game);
 // debug_data
 
 void	data_preview(t_game *game);
+
+int		count_words(char *str, char c);
 
 #endif
