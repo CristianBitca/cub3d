@@ -95,32 +95,31 @@ typedef struct	s_ray
 	int 	map_x;
 	int		map_y;
 	double 	perp_wall_dist;
-	int		hit;
 	int 	side; // 0 = vertical, 1 = horizontal
-	int		draw_start;
-	int		draw_end;
-	int		line_height;
-	int		tex_x;
-	int		tex_y;
-	double	wall_x;
-	double	step;
-	double	tex_pos;
-	t_img	*texture;
 }	t_ray;
+
+typedef struct s_draw_info
+{
+    int 	line_height;    // Height of wall to draw
+    int 	draw_start;     // Top pixel of wall
+    int 	draw_end;       // Bottom pixel of wall
+    int 	tex_x;          // X coordinate on texture
+	t_img	*img;
+}   t_draw_info;
 
 typedef	struct	s_line
 {
-	int	x0;
-	int	y0;
-	int	x1;
-	int	y1;
-	int	dx;
-	int	dy;
-	int	sx;
-	int	sy;
-	int	err;
-	int	err2;
-	int	color;
+	int		x0;
+	int		y0;
+	int		x1;
+	int		y1;
+	int		dx;
+	int		dy;
+	int		sx;
+	int		sy;
+	int		err;
+	int		err2;
+	int		color;
 }	t_line;
 
 
@@ -169,15 +168,16 @@ typedef struct s_game
 
 // init
 
-void	init_game(t_game *game, char *path);
 void	init_img(t_game *game, t_img *img);
+void	init_player(t_game *game, t_player *player);
+void	init_data(t_game *game);
+void	init_game(t_game *game, char *path);
 
-// init_assets
+// init_render
 
-t_line	*init_line(t_player *player, int x1, int y1, int color);
-void	init_ray(t_ray **ray, t_player *player, int i, double width);
-void	calculate_step_and_side_dist(t_ray *ray, t_player *player);
-void calculate_perp_dist(t_ray *ray, t_player *player);
-void	init_ray_line(t_line **line, t_ray *ray, t_player *player);
+void	init_line(t_line *line, int color);
+void	init_ray(t_ray *ray, t_game *game, t_player *player, int X);
+void	init_ray_line(t_line *line, t_ray *ray, t_player *player);
+void	init_draw(t_draw_info *draw, t_ray *ray, t_game *game);
 
 #endif
