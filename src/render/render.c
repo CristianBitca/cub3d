@@ -14,14 +14,6 @@
 #include "render.h"
 #include "parsing.h"
 
-void	put_pixel(t_img *img, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
-	*(unsigned int *)dst = color;
-}
-
 void	clear_img(t_game *game)
 {
 	int	x;
@@ -40,18 +32,48 @@ void	clear_img(t_game *game)
 	}
 }
 
+void	render_debug(t_game *game)
+{
+	debug_map(game);
+	debug_ray(game);
+	debug_player(game);
+}
+
+void	render_texture(t_game *game, t_ray *ray, int x)
+{
+	t_draw_info	draw;
+
+	init_draw(&draw, ray, game);
+	calculate_texture_x(&draw, ray, game->player, draw.img->width);
+	draw_ceiling(game, &draw, x, game->asset->C);
+	draw_wall(game, &draw, x, draw.img);
+	draw_floor(game, &draw, x, game->asset->F);
+}
+
+void	render_3d(t_game *game)
+{
+	t_ray	ray;
+	int		x;
+
+	x = 0;
+	while (x < game->screen_width)
+	{
+		init_ray(&ray, game, game->player, x);
+		render_texture(game, &ray, x);
+		x++;
+	}
+}
+
 int	render(t_game *game)
 {
 	game->old_time = game->time;
 	game->time = get_time();
 	handle_move(game);
-	// clear_img(game);  // instead of clearing the background to 0x000000, put ceiling and floor color
-	draw_floor_and_ceiling(game);
-	raycast(game);
+	clear_img(game);
 	if (game->debug_mode)
-		debug_mode(game);
-	// else
-	// 	clear_img(game);
+		render_debug(game);
+	else
+		render_3d(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img->img, 0, 0);
 	return (EXIT_SUCCESS);
 }
