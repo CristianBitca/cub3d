@@ -14,7 +14,7 @@
 #include "render.h"
 #include "parsing.h"
 
-void	render_cell(t_game *game, int x, int y, int color)
+void	debug_cell(t_game *game, int x, int y, int color)
 {
 	int	c_x;
 	int	c_y;
@@ -32,7 +32,7 @@ void	render_cell(t_game *game, int x, int y, int color)
 	}
 }
 
-void	render_map(t_game *game)
+void	debug_map(t_game *game)
 {
 	int	x;
 	int	y;
@@ -44,56 +44,40 @@ void	render_map(t_game *game)
 		while (game->map[y][x])
 		{
 			if (game->map[y][x] == '1')
-				render_cell(game, x * TILE, y * TILE, WHITE);
+				debug_cell(game, x * TILE, y * TILE, WHITE);
 			else if (game->map[y][x] == '0')
-				render_cell(game, x * TILE, y * TILE, BLACK);
+				debug_cell(game, x * TILE, y * TILE, BLACK);
 			x++;
 		}
 		y++;
 	}
 }
 
-void	render_player(t_game *game)
+void	debug_player(t_game *game)
 {
-	int		px;
-	int		py;
-	int		end_x;
-	int		end_y;
-	t_line	*line;
+	t_line	line;
 
-	px = game->player->x * TILE;
-	py = game->player->y * TILE;
-	end_x = px + game->player->dir_x * 20;
-	end_y = py + game->player->dir_y * 20;
+	line.x0 = game->player->x * TILE;
+	line.y0 = game->player->y * TILE;
+	line.x1 = line.x0 + game->player->dir_x * 20;
+	line.y1 = line.y0 + game->player->dir_y * 20;
 	draw_player(game->img, game->player);
-	line = init_line(game->player, end_x, end_y, RED);
-	draw_line(game->img, line);
+	init_line(&line, RED);
+	draw_line(game->img, &line);
 }
 
-void	render_ray(t_game *game)
+void	debug_ray(t_game *game)
 {
-	t_ray	*ray;
-	t_line	*line;
-	int		i;
+	t_ray	ray;
+	t_line	line;
+	int		x;
 
-	i = 0;
-	while (i < game->screen_width)
+	x = 0;
+	while (x < game->screen_width)
 	{
-		init_ray(&ray, game->player, i, game->screen_width);
-		calculate_step_and_side_dist(ray, game->player);
-		dda(ray, game->map);
-		calculate_perp_dist(ray, game->player);
-		init_ray_line(&line, ray, game->player);
-		draw_line(game->img, line);
-		i += 10;
-		free(ray);
+		init_ray(&ray, game, game->player, x);
+		init_ray_line(&line, &ray, game->player);
+		draw_line(game->img, &line);
+		x += 10;
 	}
-}
-
-int	debug_mode(t_game *game)
-{
-	render_map(game);
-	render_ray(game);
-	render_player(game);
-	return (EXIT_SUCCESS);
 }
