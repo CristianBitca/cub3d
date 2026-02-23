@@ -43,13 +43,13 @@ int	check_arg(int argc, char **argv)
 
 int	check_parse(t_asset *assets)
 {
-	if (!assets->EA->img)
+	if (!assets->EA)
 		exit_error(ASSET_CHECK);
-	if (!assets->SO->img)
+	if (!assets->SO)
 		exit_error(ASSET_CHECK);
-	if (!assets->NO->img)
+	if (!assets->NO)
 		exit_error(ASSET_CHECK);
-	if (!assets->WE->img)
+	if (!assets->WE)
 		exit_error(ASSET_CHECK);
 	return (EXIT_SUCCESS);
 }
