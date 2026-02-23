@@ -83,6 +83,8 @@ void	parse_img(t_game *game, t_img **img, char **elem)
 			&(*img)->bpp, &(*img)->line_len, &(*img)->endian);
 	if (!(*img)->addr)
 		return ((void)(error(), printf(XPM_FILE, tmp, elem[0])));
+	(*img)->width = width;
+	(*img)->height = height;
 	free(tmp);
 }
 
