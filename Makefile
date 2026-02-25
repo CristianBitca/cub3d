@@ -38,7 +38,7 @@ all: submodules mlx libft $(NAME)
 
 submodules:
 	@echo "Updating submodules..."
-	@git submodule update --init --recursive
+	git submodule update --init --recursive || true
 
 # ----------------------------------------------------------------------------- #
 # Libraries
