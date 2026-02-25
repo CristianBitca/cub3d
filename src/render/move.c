@@ -14,6 +14,46 @@
 #include "render.h"
 #include "parsing.h"
 
+int	check_collision(t_game *game, double x, double y)
+{
+	if (game->map[(int)y][(int)x] == '1')
+		return (1);
+	if (game->map[(int)(y - COLLISION_BUF)][(int)(x - COLLISION_BUF)] == '1')
+		return (1);
+	if (game->map[(int)(y - COLLISION_BUF)][(int)(x + COLLISION_BUF)] == '1')
+		return (1);
+	if (game->map[(int)(y + COLLISION_BUF)][(int)(x - COLLISION_BUF)] == '1')
+		return (1);
+	if (game->map[(int)(y + COLLISION_BUF)][(int)(x + COLLISION_BUF)] == '1')
+		return (1);
+	return (0);
+}
+
+void	move_with_collision(t_game *game, double move_x, double move_y)
+{
+	double	new_x;
+	double	new_y;
+
+	new_x = game->player->x + move_x;
+	new_y = game->player->y + move_y;
+	if (!check_collision(game, new_x, new_y))
+	{
+		game->player->x = new_x;
+		game->player->y = new_y;
+		return ;
+	}
+	if (!check_collision(game, new_x, game->player->y))
+	{
+		game->player->x = new_x;
+		return ;
+	}
+	if (!check_collision(game, game->player->x, new_y))
+	{
+		game->player->y = new_y;
+		return ;
+	}
+}
+
 void	calc_move(t_game *game, double *new_x, double *new_y, t_key_code key)
 {
 	double	move_step;
@@ -21,72 +61,31 @@ void	calc_move(t_game *game, double *new_x, double *new_y, t_key_code key)
 	move_step = game->move_speed * delta_time(game);
 	if (key == W_KEY)
 	{
-		*new_x = game->player->x + game->player->dir_x * move_step;
-		*new_y = game->player->y + game->player->dir_y * move_step;
+		*new_x = game->player->dir_x * move_step;
+		*new_y = game->player->dir_y * move_step;
 	}
 	else if (key == S_KEY)
 	{
-		*new_x = game->player->x - game->player->dir_x * move_step;
-		*new_y = game->player->y - game->player->dir_y * move_step;
+		*new_x = -game->player->dir_x * move_step;
+		*new_y = -game->player->dir_y * move_step;
 	}
 	else if (key == D_KEY)
 	{
-		*new_x = game->player->x - game->player->dir_y * move_step;
-		*new_y = game->player->y + game->player->dir_x * move_step;
+		*new_x = -game->player->dir_y * move_step;
+		*new_y = game->player->dir_x * move_step;
 	}
 	else if (key == A_KEY)
 	{
-		*new_x = game->player->x + game->player->dir_y * move_step;
-		*new_y = game->player->y - game->player->dir_x * move_step;
+		*new_x = game->player->dir_y * move_step;
+		*new_y = -game->player->dir_x * move_step;
 	}
 }
 
 void	move(t_game *game, t_key_code key)
 {
-	double	new_x;
-	double	new_y;
+	double	move_x;
+	double	move_y;
 
-	calc_move(game, &new_x, &new_y, key);
-	if (game->map[(int)new_y][(int)game->player->x] != '1')
-		game->player->y = new_y;
-	if (game->map[(int)game->player->y][(int)new_x] != '1')
-		game->player->x = new_x;
-}
-
-void	rotate_left(t_game *game)
-{
-	double	rot_step;
-	double	old_dir_x;
-	double	old_plane_x;
-
-	rot_step = game->rot_speed * delta_time(game);
-	old_dir_x = game->player->dir_x;
-	game->player->dir_x = game->player->dir_x * cos(rot_step)
-		- game->player->dir_y * sin(rot_step);
-	game->player->dir_y = old_dir_x * sin(rot_step)
-		+ game->player->dir_y * cos(rot_step);
-	old_plane_x = game->player->plane_x;
-	game->player->plane_x = game->player->plane_x * cos(rot_step)
-		- game->player->plane_y * sin(rot_step);
-	game->player->plane_y = old_plane_x * sin(rot_step)
-		+ game->player->plane_y * cos(rot_step);
-}
-
-void	rotate_right(t_game *game)
-{
-	double	rot_step;
-	double	old_dir_x;
-	double	old_plane_x;
-
-	rot_step = -game->rot_speed * delta_time(game);
-	old_dir_x = game->player->dir_x;
-	game->player->dir_x = game->player->dir_x * cos(rot_step)
-		- game->player->dir_y * sin(rot_step);
-	game->player->dir_y = old_dir_x * sin(rot_step)
-		+ game->player->dir_y * cos(rot_step);
-	old_plane_x = game->player->plane_x;
-	game->player->plane_x = game->player->plane_x * cos(rot_step)
-		- game->player->plane_y * sin(rot_step);
-	game->player->plane_y = old_plane_x * sin(rot_step)
-		+ game->player->plane_y * cos(rot_step);
+	calc_move(game, &move_x, &move_y, key);
+	move_with_collision(game, move_x, move_y);
 }
