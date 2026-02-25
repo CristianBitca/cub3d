@@ -64,8 +64,16 @@ void	dda(t_ray *ray, char **map)
 
 void	calculate_perp_dist(t_ray *ray, t_player *player)
 {
+	double	wall_x;
+
 	if (ray->side == 0)
-		ray->perp_wall_dist = (ray->map_x - player->x + (1 - ray->step_x) / 2) / ray->dir_x;
+	{
+		wall_x = (ray->map_x - player->x + (1 - ray->step_x) / 2);
+		ray->perp_wall_dist = wall_x / ray->dir_x;
+	}
 	else
-		ray->perp_wall_dist = (ray->map_y - player->y + (1 - ray->step_y) / 2) / ray->dir_y;
+	{
+		wall_x = (ray->map_y - player->y + (1 - ray->step_y) / 2);
+		ray->perp_wall_dist = wall_x / ray->dir_y;
+	}
 }

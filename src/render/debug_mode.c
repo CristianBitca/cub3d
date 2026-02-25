@@ -59,8 +59,8 @@ void	debug_player(t_game *game)
 
 	line.x0 = game->player->x * TILE;
 	line.y0 = game->player->y * TILE;
-	line.x1 = line.x0 + game->player->dir_x * 20;
-	line.y1 = line.y0 + game->player->dir_y * 20;
+	line.x1 = line.x0 + game->player->dir_x * 5;
+	line.y1 = line.y0 + game->player->dir_y * 5;
 	draw_player(game->img, game->player);
 	init_line(&line, RED);
 	draw_line(game->img, &line);

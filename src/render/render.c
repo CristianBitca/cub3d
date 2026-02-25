@@ -41,10 +41,10 @@ void	render_debug(t_game *game)
 
 void	render_texture(t_game *game, t_ray *ray, int x)
 {
-	t_draw_info	draw;
+	t_draw	draw;
 
 	init_draw(&draw, ray, game);
-	calculate_texture_x(&draw, ray, game->player, draw.img->width);
+	calc_texture_x(&draw, ray, game->player, draw.img->width);
 	draw_ceiling(game, &draw, x, game->asset->C);
 	draw_wall(game, &draw, x, draw.img);
 	draw_floor(game, &draw, x, game->asset->F);
@@ -62,6 +62,8 @@ void	render_3d(t_game *game)
 		render_texture(game, &ray, x);
 		x++;
 	}
+	debug_map(game);
+	debug_player(game);
 }
 
 int	render(t_game *game)

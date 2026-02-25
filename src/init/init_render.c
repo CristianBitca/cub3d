@@ -56,7 +56,7 @@ void	init_ray_line(t_line *line, t_ray *ray, t_player *player)
 	init_line(line, GREEN);
 }
 
-void	init_draw(t_draw_info *draw, t_ray *ray, t_game *game)
+void	init_draw(t_draw *draw, t_ray *ray, t_game *game)
 {
 	draw->line_height = (int)(game->screen_height / ray->perp_wall_dist);
 	draw->draw_start = -draw->line_height / 2 + game->screen_height / 2;

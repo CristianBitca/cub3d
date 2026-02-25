@@ -32,7 +32,7 @@ t_img	*texture_side(t_game *game, t_ray *ray)
 	}
 }
 
-void	calculate_texture_x(t_draw_info *draw, t_ray *ray, t_player *player, int tex_width)
+void	calc_texture_x(t_draw *draw, t_ray *ray, t_player *player, int width)
 {
 	double	wall_x;
 
@@ -41,12 +41,13 @@ void	calculate_texture_x(t_draw_info *draw, t_ray *ray, t_player *player, int te
 	else
 		wall_x = player->x + ray->perp_wall_dist * ray->dir_x;
 	wall_x -= floor(wall_x);
-	draw->tex_x = (int)(wall_x * (double)tex_width);
-	if ((ray->side == 0 && ray->dir_x > 0) || (ray->side == 1 && ray->dir_y < 0))
-		draw->tex_x = tex_width - draw->tex_x - 1;
+	draw->img_x = (int)(wall_x * (double)width);
+	if ((ray->side == 0 && ray->dir_x > 0)
+		|| (ray->side == 1 && ray->dir_y < 0))
+		draw->img_x = width - draw->img_x - 1;
 }
 
-void	draw_ceiling(t_game *game, t_draw_info *draw, int x, int color)
+void	draw_ceiling(t_game *game, t_draw *draw, int x, int color)
 {
 	int	y;
 
@@ -58,7 +59,7 @@ void	draw_ceiling(t_game *game, t_draw_info *draw, int x, int color)
 	}
 }
 
-void	draw_wall(t_game *game, t_draw_info *draw, int x, t_img *img)
+void	draw_wall(t_game *game, t_draw *draw, int x, t_img *img)
 {
 	int	y;
 	int	tex_y;
@@ -70,13 +71,13 @@ void	draw_wall(t_game *game, t_draw_info *draw, int x, t_img *img)
 	{
 		d = y * 256 - game->screen_height * 128 + draw->line_height * 128;
 		tex_y = ((d * img->height) / draw->line_height) / 256;
-		color = get_texture_color(img, draw->tex_x, tex_y);
+		color = get_texture_color(img, draw->img_x, tex_y);
 		put_pixel(game->img, x, y, color);
 		y++;
 	}
 }
 
-void	draw_floor(t_game *game, t_draw_info *draw, int x, int color)
+void	draw_floor(t_game *game, t_draw *draw, int x, int color)
 {
 	int	y;
 
