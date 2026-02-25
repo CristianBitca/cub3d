@@ -2,7 +2,3 @@
 	path = include/libft
 	url = https://github.com/CristianBitca/libft.git
 	branch = main
-[submodule "libft"]
-	path = libft
-	url = https://github.com/CristianBitca/libft.git
-	branch = main
