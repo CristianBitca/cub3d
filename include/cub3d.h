@@ -98,14 +98,14 @@ typedef struct	s_ray
 	int 	side; // 0 = vertical, 1 = horizontal
 }	t_ray;
 
-typedef struct s_draw_info
+typedef struct s_draw
 {
     int 	line_height;    // Height of wall to draw
     int 	draw_start;     // Top pixel of wall
     int 	draw_end;       // Bottom pixel of wall
-    int 	tex_x;          // X coordinate on texture
+    int 	img_x;          // X coordinate on texture
 	t_img	*img;
-}   t_draw_info;
+}   t_draw;
 
 typedef	struct	s_line
 {
@@ -178,6 +178,6 @@ void	init_game(t_game *game, char *path);
 void	init_line(t_line *line, int color);
 void	init_ray(t_ray *ray, t_game *game, t_player *player, int X);
 void	init_ray_line(t_line *line, t_ray *ray, t_player *player);
-void	init_draw(t_draw_info *draw, t_ray *ray, t_game *game);
+void	init_draw(t_draw *draw, t_ray *ray, t_game *game);
 
 #endif

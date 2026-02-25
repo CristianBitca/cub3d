@@ -15,7 +15,8 @@
 
 #include "cub3d.h"
 
-#define TILE 48
+#define TILE 58
+#define	COLLISION_BUF 0.1
 
 //render
 
@@ -35,10 +36,10 @@ void	debug_ray(t_game *game);
 //draw
 
 t_img	*texture_side(t_game *game, t_ray *ray);
-void calculate_texture_x(t_draw_info *draw, t_ray *ray, t_player *player, int tex_width);
-void	draw_ceiling(t_game *game, t_draw_info *draw, int x, int color);
-void	draw_wall(t_game *game, t_draw_info *draw, int x, t_img *img);
-void	draw_floor(t_game *game, t_draw_info *draw, int x, int color);
+void 	calc_texture_x(t_draw *draw, t_ray *ray, t_player *player, int tex_width);
+void	draw_ceiling(t_game *game, t_draw *draw, int x, int color);
+void	draw_wall(t_game *game, t_draw *draw, int x, t_img *img);
+void	draw_floor(t_game *game, t_draw *draw, int x, int color);
 
 //utility
 
@@ -57,6 +58,9 @@ void	handle_move(t_game *game);
 
 void	calc_move(t_game *game, double *new_x, double *new_y, t_key_code key);
 void	move(t_game *game, t_key_code key);
+
+//rotate
+
 void 	rotate_left(t_game *game);
 void 	rotate_right(t_game *game);
 
