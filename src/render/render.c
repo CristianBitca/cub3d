@@ -62,8 +62,6 @@ void	render_3d(t_game *game)
 		render_texture(game, &ray, x);
 		x++;
 	}
-	debug_map(game);
-	debug_player(game);
 }
 
 int	render(t_game *game)
