@@ -54,6 +54,8 @@ int	exit_game(t_game *game)
 	free(game->player);
 	free(game->img);
 	free(game->key);
+	mlx_destroy_display(game->mlx);
+	free(game->mlx);
 	free(game);
 	exit(EXIT_SUCCESS);
 	return (0);

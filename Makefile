@@ -4,7 +4,7 @@
 
 # Compiler and flags
 CC          = cc
-CFLAGS      = -Wall -Wextra -Werror -fsanitize=address -g3 -O0 
+CFLAGS      = -Wall -Wextra -Werror #-fsanitize=address -g3 -O0 
 
 # Project name
 NAME        = cub3D
@@ -91,6 +91,6 @@ re: fclean all
 # ----------------------------------------------------------------------------- #
 
 run: all
-	./$(NAME) assets/maps/map.cub
+	./$(NAME) assets/maps/test.cub
 
 .PHONY: all clean fclean re run submodules mlx libft
