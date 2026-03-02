@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tyamano <tyamano@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cbitca <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 14:32:40 by cbitca            #+#    #+#             */
-/*   Updated: 2026/02/22 20:00:20 by tyamano          ###   ########.fr       */
+/*   Updated: 2025/12/10 14:32:41 by cbitca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 #define	ASSET_MEM	"Unable to initialize memory for assets data\n"
 #define ASSET_MAP	"Unable to allocate memory for map\n"
 #define ASSET_CHECK	"Occured erros while parsing assets\n"
+#define ASSET_MISS	"An asset is missing\n"
 
 #define PLAYER_MEM	"Unable to initialize memory for player data\n"
 
@@ -45,6 +46,7 @@
 
 #define IMG_MEM		"Unable to initialize memory for image data\n"
 #define IMG_EXT		"Image %s has from incompatible format(expeced .xpm)\n"
+#define IMG_PATH	"Image %s missing path\n"
 #define RGB			"Element %s has wrong RGB value(%s)\n"
 
 #define MAP_ENTRY	"Too many starting points in the map\n"
@@ -57,20 +59,22 @@
 // error
 
 int		check_arg(int argc, char **argv);
-int	check_parse(t_asset *assets);
+int		check_parse(t_game *game, t_asset *assets);
 
 // exit
 
 void	error();
 int		exit_error(char *err);
 void	free_content(char **content);
-int	exit_game(t_game *game);
-int key_hook(int keycode, t_game *game);
+int		exit_game(t_game *game);
+int 	key_hook(int keycode, t_game *game);
 
 // debug_data
 
 void	data_preview(t_game *game);
 
-int		count_words(char *str, char c);
+//exit
+
+void	free_mlx(t_game *game);
 
 #endif

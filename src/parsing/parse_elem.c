@@ -25,11 +25,9 @@ int	check_rgb(char	*line)
 	{
 		if (!ft_isdigit(line[i]) && line[i] != ',')
 			return (EXIT_FAILURE);
-		if (line[i] == ',')
-			c++;
 		i++;
 	}
-	if (c != 2)
+	if (count_words(line, ',') != 3)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
@@ -44,7 +42,7 @@ void	parse_rgb(int *p_elem, char **elem)
 	if (check_rgb(elem[1]))
 	{
 		(error(), printf(RGB, elem[0], elem[1]));
-		return ;
+		return ((void)(exit_error(0)));
 	}
 	tmp = ft_split(elem[1], ',');
 	r = ft_atoi(tmp[0]);
@@ -56,7 +54,7 @@ void	parse_rgb(int *p_elem, char **elem)
 	{
 		(error(), printf(RGB, elem[0], elem[1]));
 		(free(tmp[0]), free(tmp[1]), free(tmp[2]), free(tmp));
-		return ;
+		return ((void)(exit_error(0)));
 	}
 	*p_elem = (r << 16) | (g << 8) | b;
 	(free(tmp[0]), free(tmp[1]), free(tmp[2]), free(tmp));
@@ -72,17 +70,22 @@ void	parse_img(t_game *game, t_img **img, char **elem)
 	height = 0;
 	*img = ft_calloc(sizeof(t_img), 1);
 	if (!*img)
-		exit_error(IMG_MEM);
+		(exit_error(IMG_MEM));
 	tmp = ft_strtrim(elem[1], "\n\t");
 	if (ft_strncmp(&tmp[ft_strlen(tmp) - 4], IMG_FORMAT, 4))
-		return ((void)(error(), printf(IMG_EXT, elem[0]), free(tmp)));
+		return ((void)(error(), printf(IMG_EXT, elem[0]),
+			free(tmp), exit_error(0)));
 	(*img)->img = mlx_xpm_file_to_image(game->mlx, tmp, &width, &height);
 	if (!(*img)->img)
-		return ((void)(error(), printf(XPM_FILE, tmp, elem[0])));
+		return ((void)(error(), printf(XPM_FILE, tmp, elem[0]),
+			exit_error(0)));
 	(*img)->addr = mlx_get_data_addr((*img)->img,
 			&(*img)->bpp, &(*img)->line_len, &(*img)->endian);
 	if (!(*img)->addr)
-		return ((void)(error(), printf(XPM_FILE, tmp, elem[0])));
+		return ((void)(error(), printf(XPM_FILE, tmp, elem[0]),
+			exit_error(0)));
+	(*img)->width = width;
+	(*img)->height = height;
 	free(tmp);
 }
 
@@ -93,7 +96,10 @@ void	parse_elem(t_game *game, char *line)
 
 	element = ft_split(line, ' ');
 	tmp = element[1];
-	element[1] = ft_strtrim(element[1], "\n\t");
+	if (!element[1])
+		element[1] = ft_strtrim(element[1], "\n\t");
+	else
+		(error(), printf(IMG_PATH, element[0]), exit_error(0));
 	free(tmp);
 	if (!ft_strncmp("NO", element[0], 3))
 		parse_img(game, &game->asset->NO, element);

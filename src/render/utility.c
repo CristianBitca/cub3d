@@ -19,10 +19,7 @@ void	draw_line(t_img *img, t_line *line)
 {
 	put_pixel(img, line->x0, line->y0, line->color);
 	if (line->x0 == line->x1 && line->y0 == line->y1)
-	{
-		free(line);
 		return ;
-	}
 	line->err2 = line->err * 2;
 	if (line->err2 > -line->dy)
 	{
@@ -60,39 +57,20 @@ void	draw_player(t_img *img, t_player *player)
 	}
 }
 
-double	get_time(void)
+void	put_pixel(t_img *img, int x, int y, int color)
 {
-	struct timeval	tv;
+	char	*dst;
 
-	gettimeofday(&tv, NULL);
-	return (tv.tv_sec + tv.tv_usec / 1000000.0);
+	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
+	*(unsigned int *)dst = color;
 }
 
-double	delta_time(t_game *game)
+int	get_texture_color(t_img *tex, int x, int y)
 {
-	return (game->time - game->old_time);
-}
+	char	*pixel;
 
-void	dda(t_ray *ray, char **map)
-{
-	int	hit;
-
-	hit = 0;
-	while (hit == 0)
-	{
-		if (ray->side_dist_x < ray->side_dist_y)
-		{
-			ray->side_dist_x += ray->delta_dist_x;
-			ray->map_x += ray->step_x;
-			ray->side = 0;
-		}
-		else
-		{
-			ray->side_dist_y += ray->delta_dist_y;
-			ray->map_y += ray->step_y;
-			ray->side = 1;
-		}
-		if (map[ray->map_y][ray->map_x] == '1')
-			hit = 1;
-	}
+	if (x < 0 || x >= tex->width || y < 0 || y >= tex->height)
+		return (0);
+	pixel = tex->addr + (y * tex->line_len + x * (tex->bpp / 8));
+	return (*(int *)pixel);
 }

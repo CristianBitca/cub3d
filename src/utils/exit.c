@@ -32,6 +32,17 @@ void	free_img(t_game *game, t_img **img)
 	(void)game;
 }
 
+void	free_mlx(t_game *game)
+{
+	if (game->win)
+		mlx_destroy_window(game->mlx, game->win);
+	if (game->mlx)
+	{
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
+	}
+}
+
 int	exit_game(t_game *game)
 {
 	if (!game)
@@ -40,8 +51,6 @@ int	exit_game(t_game *game)
 		free_content(game->map);
 	if (game->img && game->img->img)
 		mlx_destroy_image(game->mlx, game->img->img);
-	if (game->win)
-		mlx_destroy_window(game->mlx, game->win);
 	free_img(game, &game->asset->EA);
 	free(game->asset->EA);
 	free_img(game, &game->asset->WE);
@@ -54,6 +63,7 @@ int	exit_game(t_game *game)
 	free(game->player);
 	free(game->img);
 	free(game->key);
+	free_mlx(game);
 	free(game);
 	exit(EXIT_SUCCESS);
 	return (0);

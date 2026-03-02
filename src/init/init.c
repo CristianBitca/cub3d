@@ -75,8 +75,8 @@ void	init_data(t_game *game)
 	game->img = ft_calloc(sizeof(t_img), 1);
 	if (!game->img)
 		exit_error(IMG_MEM);
-	game->move_speed = 0.6;
-	game->rot_speed = 0.6;
+	game->move_speed = 1.0;
+	game->rot_speed = 1.0;
 }
 
 void	init_game(t_game *game, char *path)
@@ -89,7 +89,6 @@ void	init_game(t_game *game, char *path)
 	mlx_hook(game->win, KEY_PRESS, 1L << 0, &key_press, game);
 	mlx_hook(game->win, KEY_RELEASE, 1L << 1, &key_release, game);
 	mlx_loop_hook(game->mlx, &render, game);
-	data_preview(game);
-	game->debug_mode = 1;
+	game->debug_mode = 0;
 	mlx_loop(game->mlx);
 }
