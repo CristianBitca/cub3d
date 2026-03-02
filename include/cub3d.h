@@ -95,15 +95,15 @@ typedef struct	s_ray
 	int 	map_x;
 	int		map_y;
 	double 	perp_wall_dist;
-	int 	side; // 0 = vertical, 1 = horizontal
+	int 	side;
 }	t_ray;
 
 typedef struct s_draw
 {
-    int 	line_height;    // Height of wall to draw
-    int 	draw_start;     // Top pixel of wall
-    int 	draw_end;       // Bottom pixel of wall
-    int 	img_x;          // X coordinate on texture
+    int 	line_height;
+    int 	draw_start;
+    int 	draw_end;
+    int 	img_x;
 	t_img	*img;
 }   t_draw;
 

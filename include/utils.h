@@ -58,23 +58,23 @@
 
 // error
 
+void	error(void);
+int		exit_error(char *err);
 int		check_arg(int argc, char **argv);
 int		check_parse(t_game *game, t_asset *assets);
 
 // exit
 
-void	error();
-int		exit_error(char *err);
 void	free_content(char **content);
+void	free_img(t_game *game, t_img **img);
+void	free_mlx(t_game *game);
 int		exit_game(t_game *game);
-int 	key_hook(int keycode, t_game *game);
 
 // debug_data
 
 void	data_preview(t_game *game);
-
-//exit
-
-void	free_mlx(t_game *game);
+void	print_data_prev(void *mem, char *elem, t_data_type type);
+void	print_map(char **map);
+void	print_player(t_player *player);
 
 #endif

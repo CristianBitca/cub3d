@@ -56,6 +56,8 @@ void	handle_move(t_game *game);
 
 //move
 
+int		check_collision(t_game *game, double x, double y);
+void	move_with_collision(t_game *game, double move_x, double move_y);
 void	calc_move(t_game *game, double *new_x, double *new_y, t_key_code key);
 void	move(t_game *game, t_key_code key);
 

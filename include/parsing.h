@@ -34,15 +34,16 @@ int		parse(t_game *game, char *path);
 
 // parse_elem
 
-int	check_elem(char	*line);
+int		check_elem(char	*line);
+int		check_rgb(char	*line);
 void	parse_rgb(int *p_elem, char **elem);
-void	parse_elem(t_game *game, char *line);
 void	parse_img(t_game *game, t_img **img, char **elem);
+void	parse_elem(t_game *game, char *line);
 
 // parse_map
 
-void	parse_map(t_game *game, char *line, int fd);
 int		check_map(char *line, int check);
+void	parse_map(t_game *game, char *line, int fd);
 int		check_map_valid(t_game *game, char *content, t_player *player);
 void	flood_fill(t_game *game, char **buffer, int y, int x);
 
