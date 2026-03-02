@@ -78,6 +78,6 @@ void	debug_ray(t_game *game)
 		init_ray(&ray, game, game->player, x);
 		init_ray_line(&line, &ray, game->player);
 		draw_line(game->img, &line);
-		x += 10;
+		x += 30;
 	}
 }

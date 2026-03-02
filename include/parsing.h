@@ -43,7 +43,7 @@ void	parse_img(t_game *game, t_img **img, char **elem);
 
 void	parse_map(t_game *game, char *line, int fd);
 int		check_map(char *line, int check);
-int		check_map_valid(char *content, t_player *player);
-void	flood_fill(char **buffer, int y, int x);
+int		check_map_valid(t_game *game, char *content, t_player *player);
+void	flood_fill(t_game *game, char **buffer, int y, int x);
 
 #endif

@@ -14,26 +14,26 @@
 #include "parsing.h"
 #include "utils.h"
 
-void	flood_fill(char **buffer, int y, int x)
+void	flood_fill(t_game *game, char **buffer, int y, int x)
 {
 	if (x < 0 || y < 0 || !buffer[y] || !buffer[y][x])
-		exit_error(MAP_INVALID);
+		(exit_error(MAP_INVALID));
 	if (buffer[y][x] == ' ' || buffer[y][x] == '\0')
-		exit_error(MAP_INVALID);
+		(exit_error(MAP_INVALID));
 	if (buffer[y][x] == '1' || buffer[y][x] == 'V')
 		return ;
 	buffer[y][x] = 'V';
-	flood_fill(buffer, y + 1, x);
-	flood_fill(buffer, y - 1, x);
-	flood_fill(buffer, y, x + 1);
-	flood_fill(buffer, y, x - 1);
-	flood_fill(buffer, y + 1, x + 1);
-	flood_fill(buffer, y - 1, x + 1);
-	flood_fill(buffer, y + 1, x + 1);
-	flood_fill(buffer, y + 1, x - 1);
+	flood_fill(game, buffer, y + 1, x);
+	flood_fill(game, buffer, y - 1, x);
+	flood_fill(game, buffer, y, x + 1);
+	flood_fill(game, buffer, y, x - 1);
+	flood_fill(game, buffer, y + 1, x + 1);
+	flood_fill(game, buffer, y - 1, x + 1);
+	flood_fill(game, buffer, y - 1, x - 1);
+	flood_fill(game, buffer, y + 1, x - 1);
 }
 
-int	check_map_valid(char *content, t_player *player)
+int	check_map_valid(t_game *game, char *content, t_player *player)
 {
 	char	**buffer;
 	int		y;
@@ -49,9 +49,9 @@ int	check_map_valid(char *content, t_player *player)
 			if (ft_strchr(ENTRY_CHARS, buffer[y][x])
 			&& buffer[y][x] != '\n')
 			{
-				flood_fill(buffer, y, x);
 				player->y = (double)y;
 				player->x = (double)x;
+				flood_fill(game, buffer, y, x);
 				return (free_content(buffer), EXIT_SUCCESS);
 			}
 			x++;
@@ -100,7 +100,7 @@ void	parse_map(t_game *game, char *line, int fd)
 	}
 	if (check_map(buffer, 1))
 		exit_error(MAP_INVALID);
-	if (check_map_valid(buffer, game->player))
+	if (check_map_valid(game, buffer, game->player))
 		exit_error(MAP_INVALID);
 	game->map = ft_split(buffer, '\n');
 	game->map_height = count_words(buffer, '\n');

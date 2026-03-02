@@ -89,7 +89,6 @@ void	init_game(t_game *game, char *path)
 	mlx_hook(game->win, KEY_PRESS, 1L << 0, &key_press, game);
 	mlx_hook(game->win, KEY_RELEASE, 1L << 1, &key_release, game);
 	mlx_loop_hook(game->mlx, &render, game);
-	data_preview(game);
 	game->debug_mode = 0;
 	mlx_loop(game->mlx);
 }

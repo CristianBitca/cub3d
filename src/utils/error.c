@@ -26,7 +26,8 @@ void	error(void)
 int	exit_error(char *err)
 {
 	error();
-	printf("%s", err);
+	if (err)
+		printf("%s", err);
 	exit(EXIT_FAILURE);
 }
 
@@ -41,15 +42,17 @@ int	check_arg(int argc, char **argv)
 	return (EXIT_SUCCESS);
 }
 
-int	check_parse(t_asset *assets)
+int	check_parse(t_game *game, t_asset *assets)
 {
 	if (!assets->EA)
-		exit_error(ASSET_CHECK);
+		exit_error(ASSET_MISS);
 	if (!assets->SO)
-		exit_error(ASSET_CHECK);
+		exit_error(ASSET_MISS);
 	if (!assets->NO)
-		exit_error(ASSET_CHECK);
+		exit_error(ASSET_MISS);
 	if (!assets->WE)
-		exit_error(ASSET_CHECK);
+		exit_error(ASSET_MISS);
+	if (!game->map)
+		exit_error(ASSET_MISS);
 	return (EXIT_SUCCESS);
 }
