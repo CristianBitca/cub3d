@@ -14,6 +14,18 @@
 #include "render.h"
 #include "parsing.h"
 
+// FUNCTION: calculate_step_and_side_dist
+// ----------------------------
+// Calculates the step direction and initial side distances for the DDA algorithm.
+// Determines whether to step in the positive or negative X/Y direction and computes
+// the distance from the player to the first side of the next map square along each axis.
+//
+// PARAMETERS
+// ray    : Pointer to the ray structure containing direction, map position, and side distance data.
+// player : Pointer to the player structure containing current player position.
+//
+// RETURN VALUE
+// None. Updates the ray structure with step_x, step_y, side_dist_x, and side_dist_y.
 void	calculate_step_and_side_dist(t_ray *ray, t_player *player)
 {
 	if (ray->dir_x < 0)
@@ -38,6 +50,17 @@ void	calculate_step_and_side_dist(t_ray *ray, t_player *player)
 	}
 }
 
+// FUNCTION: dda
+// ----------------------------
+// Performs the DDA (Digital Differential Analyzer) algorithm to step through the map grid
+// until a wall is hit. Determines which square of the map the ray intersects.
+//
+// PARAMETERS
+// ray : Pointer to the ray structure containing map coordinates, side distances, and step info.
+// map : 2D character array representing the map layout ('1' = wall, '0' = empty space).
+//
+// RETURN VALUE
+// None. Updates the ray structure with map_x, map_y, and side of the wall hit.
 void	dda(t_ray *ray, char **map)
 {
 	int	hit;
@@ -62,6 +85,18 @@ void	dda(t_ray *ray, char **map)
 	}
 }
 
+
+// FUNCTION: calculate_perp_dist
+// ----------------------------
+// Calculates the perpendicular distance from the player to the wall that the ray hits.
+// This distance is used to correct the fish-eye effect in raycasting.
+//
+// PARAMETERS
+// ray    : Pointer to the ray structure containing side and map coordinates.
+// player : Pointer to the player structure containing current player position.
+//
+// RETURN VALUE
+// None. Updates ray->perp_wall_dist with the perpendicular distance to the wall.
 void	calculate_perp_dist(t_ray *ray, t_player *player)
 {
 	double	wall_x;

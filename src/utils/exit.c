@@ -12,6 +12,15 @@
 
 #include "utils.h"
 
+// FUNCTION: free_content
+// ----------------------------
+// Frees a null-terminated array of strings.
+//
+// PARAMETERS
+// content : Pointer to a dynamically allocated array of strings.
+//
+// RETURN VALUE
+// None.
 void	free_content(char **content)
 {
 	int	i;
@@ -25,6 +34,16 @@ void	free_content(char **content)
 	free(content);
 }
 
+// FUNCTION: free_img
+// ----------------------------
+// Frees an mlx image if it exists.
+//
+// PARAMETERS
+// game : Pointer to the main game structure (used for mlx functions).
+// img  : Pointer to the t_img pointer to free.
+//
+// RETURN VALUE
+// None.
 void	free_img(t_game *game, t_img **img)
 {
 	if ((*img)->img)
@@ -32,6 +51,15 @@ void	free_img(t_game *game, t_img **img)
 	(void)game;
 }
 
+// FUNCTION: free_mlx
+// ----------------------------
+// Frees the mlx window and display resources.
+//
+// PARAMETERS
+// game : Pointer to the main game structure.
+//
+// RETURN VALUE
+// None.
 void	free_mlx(t_game *game)
 {
 	if (game->win)
@@ -43,6 +71,16 @@ void	free_mlx(t_game *game)
 	}
 }
 
+// FUNCTION: exit_game
+// ----------------------------
+// Frees all allocated game resources and exits the program.
+//
+// PARAMETERS
+// game : Pointer to the main game structure.
+//
+// RETURN VALUE
+// Exits the program with EXIT_SUCCESS. Returns 0 for compatibility, but
+// it never actually returns.
 int	exit_game(t_game *game)
 {
 	if (!game)

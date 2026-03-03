@@ -13,6 +13,15 @@
 #include "cub3d.h"
 #include "utils.h"
 
+// FUNCTION: print_player
+// ----------------------------
+// Prints the player’s position, direction vector, and camera plane to the console.
+//
+// PARAMETERS
+// player : Pointer to the player structure containing coordinates and vectors.
+//
+// RETURN VALUE
+// None.
 void	print_player(t_player *player)
 {
 	printf("X = %d Y = %d\n", (int)player->x, (int)player->y);
@@ -21,6 +30,15 @@ void	print_player(t_player *player)
 	(void)player;
 }
 
+// FUNCTION: print_map
+// ----------------------------
+// Prints a 2D map stored as a string array to the console.
+//
+// PARAMETERS
+// map : Pointer to a null-terminated array of strings representing the map.
+//
+// RETURN VALUE
+// None.
 void	print_map(char **map)
 {
 	int	i;
@@ -35,6 +53,17 @@ void	print_map(char **map)
 	printf("\n");
 }
 
+// FUNCTION: print_data_prev
+// ----------------------------
+// Prints a single piece of game data to the console, based on its type.
+//
+// PARAMETERS
+// mem  : Pointer to the data to print (cast depending on type).
+// elem : Label describing the data (e.g., "Screen width").
+// type : Type of the data (INT, DOUBLE, CHAR, PLAYER, ASSET, VOID).
+//
+// RETURN VALUE
+// None.
 void	print_data_prev(void *mem, char *elem, t_data_type type)
 {
 	printf("%s", elem);
@@ -57,6 +86,16 @@ void	print_data_prev(void *mem, char *elem, t_data_type type)
 	}
 }
 
+// FUNCTION: data_preview
+// ----------------------------
+// Prints an overview of all important game data to the console, useful for
+// debugging initialization and parsing steps.
+//
+// PARAMETERS
+// game : Pointer to the game structure containing all data.
+//
+// RETURN VALUE
+// None.
 void	data_preview(t_game *game)
 {
 	print_data_prev(game->mlx, "MLX\t\t", VOID);

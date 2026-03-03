@@ -15,6 +15,17 @@
 #include "render.h"
 #include "utils.h"
 
+// FUNCTION: init_line
+// ----------------------------
+// Initializes a line structure for Bresenham's algorithm, computing differences,
+// step directions, and error term. Sets the color of the line.
+//
+// PARAMETERS
+// line  : Pointer to the line structure to initialize (contains x0, y0, x1, y1).
+// color : Color of the line to be drawn (integer, 0xRRGGBB format).
+//
+// RETURN VALUE
+// None. Modifies the line structure in place.
 void	init_line(t_line *line, int color)
 {
 	line->dx = abs(line->x1 - line->x0);
@@ -31,6 +42,20 @@ void	init_line(t_line *line, int color)
 	line->color = color;
 }
 
+// FUNCTION: init_ray
+// ----------------------------
+// Initializes a ray for raycasting. Computes the ray direction, delta distances,
+// performs DDA to find the wall hit, and calculates the perpendicular distance.
+//
+// PARAMETERS
+// ray    : Pointer to the ray structure to initialize.
+// game   : Pointer to the game structure (contains player and map info).
+// player : Pointer to the player structure (current position and direction).
+// x      : The x-coordinate (column) on the screen corresponding to this ray.
+//
+// RETURN VALUE
+// None. Updates the ray structure with direction, map coordinates, side distances, 
+// and perpendicular wall distance.
 void	init_ray(t_ray *ray, t_game *game, t_player *player, int x)
 {
 	double	camera_x;
@@ -47,6 +72,17 @@ void	init_ray(t_ray *ray, t_game *game, t_player *player, int x)
 	calculate_perp_dist(ray, game->player);
 }
 
+// FUNCTION: init_ray_line
+// ----------------------------
+// Initializes a line structure representing the ray path for debugging purposes.
+//
+// PARAMETERS
+// line   : Pointer to the line structure to initialize.
+// ray    : Pointer to the ray structure containing direction and perpendicular distance.
+// player : Pointer to the player structure containing the starting position.
+//
+// RETURN VALUE
+// None. Modifies the line structure in place.
 void	init_ray_line(t_line *line, t_ray *ray, t_player *player)
 {
 	line->x0 = player->x * TILE;
@@ -56,6 +92,18 @@ void	init_ray_line(t_line *line, t_ray *ray, t_player *player)
 	init_line(line, GREEN);
 }
 
+// FUNCTION: init_draw
+// ----------------------------
+// Initializes a draw structure for rendering a vertical wall stripe. Computes the
+// line height and start/end positions, and selects the correct texture based on ray side.
+//
+// PARAMETERS
+// draw : Pointer to the draw structure to initialize.
+// ray  : Pointer to the ray structure (used for perpendicular distance and wall side).
+// game : Pointer to the game structure (screen dimensions and textures).
+//
+// RETURN VALUE
+// None. Updates the draw structure with line height, draw_start, draw_end, and img (texture).
 void	init_draw(t_draw *draw, t_ray *ray, t_game *game)
 {
 	draw->line_height = (int)(game->screen_height / ray->perp_wall_dist);

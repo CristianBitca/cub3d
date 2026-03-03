@@ -14,6 +14,17 @@
 #include "render.h"
 #include "parsing.h"
 
+// FUNCTION: rotate_left
+// ----------------------------
+// Rotates the player's view to the left (counter-clockwise) by the rotation speed
+// scaled with delta_time. Updates both the direction vector and the camera plane.
+//
+// PARAMETERS
+// game : Pointer to the game structure containing the player direction, camera plane, 
+//        and rotation speed.
+//
+// RETURN VALUE
+// None. Updates the player's dir_x, dir_y, plane_x, and plane_y values in the game structure.
 void	rotate_left(t_game *game)
 {
 	double	rot_step;
@@ -32,6 +43,18 @@ void	rotate_left(t_game *game)
 	game->player->plane_y = old_plane_x * sin(rot_step)
 		+ game->player->plane_y * cos(rot_step);
 }
+
+// FUNCTION: rotate_right
+// ----------------------------
+// Rotates the player's view to the right (clockwise) by the rotation speed
+// scaled with delta_time. Updates both the direction vector and the camera plane.
+//
+// PARAMETERS
+// game : Pointer to the game structure containing the player direction, camera plane, 
+//        and rotation speed.
+//
+// RETURN VALUE
+// None. Updates the player's dir_x, dir_y, plane_x, and plane_y values in the game structure.
 
 void	rotate_right(t_game *game)
 {

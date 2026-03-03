@@ -15,6 +15,17 @@
 #include "render.h"
 #include "utils.h"
 
+// FUNCTION: init_img
+// ----------------------------
+// Initializes the main window and the image buffer for rendering. Sets up the
+// image address, bits per pixel, line length, and endian for pixel manipulation.
+//
+// PARAMETERS
+// game : Pointer to the game structure (contains mlx pointer, window, and image info).
+// img  : Pointer to the image structure to initialize.
+//
+// RETURN VALUE
+// None. Modifies the game and image structures in place.
 void	init_img(t_game *game, t_img *img)
 {
 	game->win = mlx_new_window(game->mlx, game->screen_width,
@@ -27,6 +38,17 @@ void	init_img(t_game *game, t_img *img)
 			&img->bpp, &img->line_len, &img->endian);
 }
 
+// FUNCTION: init_player
+// ----------------------------
+// Initializes the player's position, direction, and camera plane based on the
+// map starting cell ('N', 'S', 'E', 'W'). Offsets the player to the center of the tile.
+//
+// PARAMETERS
+// game   : Pointer to the game structure (contains the map).
+// player : Pointer to the player structure to initialize.
+//
+// RETURN VALUE
+// None. Modifies the player structure in place.
 void	init_player(t_game *game, t_player *player)
 {
 	if (game->map[(int)player->y][(int)player->x] == 'N')
@@ -55,6 +77,17 @@ void	init_player(t_game *game, t_player *player)
 	player->plane_y = player->dir_x * 0.66;
 }
 
+// FUNCTION: init_data
+// ----------------------------
+// Allocates and initializes the core game structures and sets default movement
+// and rotation speeds. Checks for memory allocation and screen size errors.
+//
+// PARAMETERS
+// game : Pointer to the game structure to initialize.
+//
+// RETURN VALUE
+// None. Allocates memory and sets initial values for game, player, key, asset, and image structures.
+
 void	init_data(t_game *game)
 {
 	game->mlx = mlx_init();
@@ -79,6 +112,17 @@ void	init_data(t_game *game)
 	game->rot_speed = 1.0;
 }
 
+// FUNCTION: init_game
+// ----------------------------
+// Initializes the full game: data structures, parsing map from file, player,
+// image, and sets up the MLX hooks for key events, window close, and the render loop.
+//
+// PARAMETERS
+// game : Pointer to the game structure to initialize.
+// path : Path to the map file to load.
+//
+// RETURN VALUE
+// None. Starts the main MLX loop, handling rendering and input events.
 void	init_game(t_game *game, char *path)
 {
 	init_data(game);

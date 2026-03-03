@@ -14,6 +14,20 @@
 #include "parsing.h"
 #include "utils.h"
 
+// FUNCTION: parse
+// ----------------------------
+// Reads a Cub3D configuration file, parses textures, colors, and the map,
+// and validates the parsed data. Calls the appropriate parse functions based
+// on whether a line is an element, a map line, or empty.
+//
+// PARAMETERS
+// game : Pointer to the game structure where parsed data will be stored.
+// path : Path to the .cub configuration file.
+//
+// RETURN VALUE
+// Returns EXIT_SUCCESS (0) if parsing succeeds, EXIT_FAILURE (1) on failure.
+// Exits the program immediately if the file cannot be opened or if critical
+// parsing errors occur.
 int	parse(t_game *game, char *path)
 {
 	int		fd;

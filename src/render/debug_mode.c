@@ -14,6 +14,19 @@
 #include "render.h"
 #include "parsing.h"
 
+// FUNCTION: debug_cell
+// ----------------------------
+// Draws a single map cell as a filled square on the screen for debugging purposes.
+// Fills a TILE-sized area at the given screen coordinates with the specified color.
+//
+// PARAMETERS
+// game  : Pointer to the game structure containing the image buffer.
+// x     : Horizontal screen coordinate where the cell starts.
+// y     : Vertical screen coordinate where the cell starts.
+// color : Color value to fill the cell.
+//
+// RETURN VALUE
+// None.
 void	debug_cell(t_game *game, int x, int y, int color)
 {
 	int	c_x;
@@ -32,6 +45,16 @@ void	debug_cell(t_game *game, int x, int y, int color)
 	}
 }
 
+// FUNCTION: debug_map
+// ----------------------------
+// Renders a 2D representation of the map for debugging purposes. Draws each map
+// cell with a color based on its type to visualize walls and empty spaces.
+//
+// PARAMETERS
+// game : Pointer to the game structure containing the map array and image buffer.
+//
+// RETURN VALUE
+// None.
 void	debug_map(t_game *game)
 {
 	int	x;
@@ -53,6 +76,16 @@ void	debug_map(t_game *game)
 	}
 }
 
+// FUNCTION: debug_player
+// ----------------------------
+// Draws the player position and facing direction on the screen for debugging purposes.
+// Renders a player marker and a short line indicating the direction the player is facing.
+//
+// PARAMETERS
+// game : Pointer to the game structure containing the player structure and image buffer.
+//
+// RETURN VALUE
+// None.
 void	debug_player(t_game *game)
 {
 	t_line	line;
@@ -66,6 +99,17 @@ void	debug_player(t_game *game)
 	draw_line(game->img, &line);
 }
 
+// FUNCTION: debug_ray
+// ----------------------------
+// Draws raycasting lines on the screen for debugging purposes. Casts rays at
+// regular intervals across the screen and renders their paths to visualize
+// ray directions and wall intersections.
+//
+// PARAMETERS
+// game : Pointer to the game structure containing player position, screen dimensions, and image buffer.
+//
+// RETURN VALUE
+// None.
 void	debug_ray(t_game *game)
 {
 	t_ray	ray;

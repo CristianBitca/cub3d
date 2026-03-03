@@ -15,6 +15,17 @@
 #include "parsing.h"
 #include <sys/wait.h>
 
+// FUNCTION: draw_line
+// ----------------------------
+// Draws a line between two points on an image using Bresenham's algorithm.
+// Recursively steps through the line, plotting each pixel with the specified color.
+//
+// PARAMETERS
+// img  : Pointer to the image structure where the line will be drawn.
+// line : Pointer to the line structure containing start/end coordinates, step increments, and color.
+//
+// RETURN VALUE
+// None. Modifies the image by setting the pixels along the line.
 void	draw_line(t_img *img, t_line *line)
 {
 	put_pixel(img, line->x0, line->y0, line->color);
@@ -34,6 +45,17 @@ void	draw_line(t_img *img, t_line *line)
 	draw_line(img, line);
 }
 
+
+// FUNCTION: draw_player
+// ----------------------------
+// Draws the player as a small circle on the minimap for debugging purposes.
+//
+// PARAMETERS
+// img    : Pointer to the image structure where the player will be drawn.
+// player : Pointer to the player structure containing the player's position.
+//
+// RETURN VALUE
+// None. Modifies the image by drawing the player.
 void	draw_player(t_img *img, t_player *player)
 {
 	int	x;
@@ -57,6 +79,18 @@ void	draw_player(t_img *img, t_player *player)
 	}
 }
 
+// FUNCTION: put_pixel
+// ----------------------------
+// Sets the color of a single pixel in the image buffer at (x, y).
+//
+// PARAMETERS
+// img   : Pointer to the image structure containing the pixel buffer.
+// x     : X-coordinate of the pixel.
+// y     : Y-coordinate of the pixel.
+// color : The color value to set (usually in 0xRRGGBB format).
+//
+// RETURN VALUE
+// None. Modifies the image buffer by setting the pixel color.
 void	put_pixel(t_img *img, int x, int y, int color)
 {
 	char	*dst;
@@ -65,6 +99,17 @@ void	put_pixel(t_img *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
+// FUNCTION: get_texture_color
+// ----------------------------
+// Retrieves the color of a pixel from a texture image at (x, y).
+//
+// PARAMETERS
+// tex : Pointer to the texture image structure.
+// x   : X-coordinate of the pixel in the texture.
+// y   : Y-coordinate of the pixel in the texture.
+//
+// RETURN VALUE
+// Returns the color of the pixel as an integer (0 if coordinates are out of bounds).
 int	get_texture_color(t_img *tex, int x, int y)
 {
 	char	*pixel;

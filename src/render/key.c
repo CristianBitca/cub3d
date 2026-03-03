@@ -15,6 +15,17 @@
 #include "parsing.h"
 #include "utils.h"
 
+// FUNCTION: key_press
+// ----------------------------
+// Handles key press events. Sets the corresponding key flags in the game structure
+// or triggers actions like exiting the game or toggling debug mode.
+//
+// PARAMETERS
+// keycode : The keycode of the key that was pressed.
+// game    : Pointer to the game structure containing the current key state and debug mode.
+//
+// RETURN VALUE
+// Returns 0.
 int	key_press(int keycode, t_game *game)
 {
 	if (keycode == ESC_KEY)
@@ -36,6 +47,17 @@ int	key_press(int keycode, t_game *game)
 	return (0);
 }
 
+
+// FUNCTION: key_release
+// ----------------------------
+// Handles key release events. Clears the corresponding key flags in the game structure.
+//
+// PARAMETERS
+// keycode : The keycode of the key that was released.
+// game    : Pointer to the game structure containing the current key state.
+//
+// RETURN VALUE
+// Returns 0.
 int	key_release(int keycode, t_game *game)
 {
 	if (keycode == W_KEY)
@@ -53,6 +75,16 @@ int	key_release(int keycode, t_game *game)
 	return (0);
 }
 
+// FUNCTION: handle_move
+// ----------------------------
+// Processes player movement and rotation based on the current state of the key flags.
+// Moves the player forward, backward, strafing left/right, or rotates the view.
+//
+// PARAMETERS
+// game : Pointer to the game structure containing the key states and player information.
+//
+// RETURN VALUE
+// None.
 void	handle_move(t_game *game)
 {
 	if (game->key->w)

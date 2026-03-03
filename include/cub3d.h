@@ -23,14 +23,28 @@
 
 // Struct
 
+// ENUM: t_colors
+// --------------
+// Defines common colors used in the game for rendering purposes. Each color
+// is represented as a hexadecimal RGB value.
+//
+// USAGE
+// Can be used to set pixel colors in images or for drawing lines and shapes.
 typedef enum e_colors
 {
 	RED = 0xFF0000,
 	GREEN = 0x00FF00,
 	WHITE = 0xFFFFFF,
 	BLACK = 0x000000
-}	t_clors;
+}	t_colors;
 
+// ENUM: t_key_code
+// ----------------
+// Enumerates key codes and event types from the X11 / MinilibX environment.
+//
+// USAGE
+// Used to detect specific key presses or window events such as ESC, arrows,
+// WASD movement keys, or closing the window.
 typedef enum e_key_code
 {
 	CLOSE_ICON = 17,
@@ -48,6 +62,13 @@ typedef enum e_key_code
 	M_KEY = 109
 }	t_key_code;
 
+// ENUM: t_data_type
+// -----------------
+// Lists all possible types of data structures used in the game logic.
+//
+// USAGE
+// Useful for generic functions or type checking when handling different data
+// types like INT, CHAR, IMG, PLAYER, RAY, etc.
 typedef	enum e_data_type
 {
 	INT,
@@ -61,6 +82,21 @@ typedef	enum e_data_type
 	VOID
 }	t_data_type;
 
+// STRUCT: t_img
+// --------------
+// Stores information about an image used in rendering.
+//
+// MEMBERS
+// img       : Pointer to the image object from MinilibX.
+// addr      : Memory address of the image data.
+// bpp       : Bits per pixel.
+// line_len  : Number of bytes per row of the image.
+// endian    : Endianness of the image.
+// width     : Width of the image in pixels.
+// height    : Height of the image in pixels.
+//
+// USAGE
+// Holds textures or framebuffers that are drawn to the window.
 typedef	struct s_img
 {    
 	void    *img;
@@ -72,6 +108,17 @@ typedef	struct s_img
 	int		height;
 }	t_img;
 
+// STRUCT: t_player
+// -----------------
+// Represents the player state in the game.
+//
+// MEMBERS
+// x, y          : Position coordinates of the player.
+// dir_x, dir_y  : Direction vector of the player.
+// plane_x, plane_y : Camera plane for raycasting calculations.
+//
+// USAGE
+// Used for movement, rotation, and raycasting for rendering 3D perspective.
 typedef struct s_player
 {
     double  x;
@@ -82,6 +129,21 @@ typedef struct s_player
     double  plane_y;
 }	t_player;
 
+// STRUCT: t_ray
+// --------------
+// Stores information about a single ray used in the raycasting algorithm.
+//
+// MEMBERS
+// dir_x, dir_y        : Ray direction vector.
+// delta_dist_x/y      : Distance the ray must travel to cross a grid cell in x/y.
+// side_dist_x/y       : Distance from current position to next x/y side.
+// step_x, step_y      : Step direction for x and y axes (+1 or -1).
+// map_x, map_y        : Current grid cell coordinates.
+// perp_wall_dist      : Perpendicular distance from player to wall hit.
+// side                : Which side of the wall was hit (0=x, 1=y).
+//
+// USAGE
+// Essential for determining wall intersections and rendering 3D scene slices.
 typedef struct	s_ray
 {
 	double	dir_x;
@@ -98,6 +160,19 @@ typedef struct	s_ray
 	int 	side;
 }	t_ray;
 
+// STRUCT: t_draw
+// -----------------
+// Stores parameters for drawing vertical slices of walls on the screen.
+//
+// MEMBERS
+// line_height : Height of the vertical line to draw.
+// draw_start  : Starting pixel of the line on the screen.
+// draw_end    : Ending pixel of the line on the screen.
+// img_x       : Texture X coordinate.
+// img         : Pointer to the texture image.
+//
+// USAGE
+// Used in raycasting to calculate which part of a texture to draw on the screen.
 typedef struct s_draw
 {
     int 	line_height;
@@ -107,6 +182,19 @@ typedef struct s_draw
 	t_img	*img;
 }   t_draw;
 
+// STRUCT: t_line
+// -----------------
+// Represents a line to be drawn on the screen (e.g., for debugging or rays).
+//
+// MEMBERS
+// x0, y0, x1, y1 : Start and end points of the line.
+// dx, dy         : Differences in x and y (for Bresenham’s algorithm).
+// sx, sy         : Step directions.
+// err, err2      : Error variables for Bresenham’s algorithm.
+// color          : Line color.
+//
+// USAGE
+// Helps in rendering lines for walls, rays, or debugging visuals.
 typedef	struct	s_line
 {
 	int		x0;
@@ -123,6 +211,16 @@ typedef	struct	s_line
 }	t_line;
 
 
+// STRUCT: t_key
+// -----------------
+// Stores the state of movement keys for the player.
+//
+// MEMBERS
+// w, a, s, d   : WASD key states (pressed or not).
+// left, right  : Arrow key states for rotation.
+//
+// USAGE
+// Used to update the player position and rotation during the game loop.
 typedef	struct	s_key
 {
 	int		w;
@@ -133,6 +231,16 @@ typedef	struct	s_key
 	int		right;
 }	t_key;
 
+// STRUCT: t_asset
+// -----------------
+// Holds the textures and color values for the game’s map assets.
+//
+// MEMBERS
+// NO, SO, WE, EA : Texture images for the four directions.
+// F, C           : Floor and ceiling colors.
+//
+// USAGE
+// Provides all necessary assets for rendering walls, floors, and ceilings.
 typedef struct s_asset
 {
 	t_img	*NO;
@@ -143,7 +251,26 @@ typedef struct s_asset
 	int		C;
 }	t_asset;
 
-
+// STRUCT: t_game
+// -----------------
+// Central structure representing the game state.
+//
+// MEMBERS
+// mlx, win      : Pointers to MinilibX instance and window.
+// img           : Pointer to current screen image.
+// map           : 2D array representing the game map.
+// map_width/height : Dimensions of the map.
+// screen_width/height : Dimensions of the window.
+// asset         : Pointer to loaded textures and colors.
+// player        : Pointer to the player structure.
+// key           : Pointer to key state structure.
+// move_speed, rot_speed : Movement and rotation speed.
+// time, old_time : Timing for movement and rendering calculations.
+// debug_mode    : Enables or disables debug rendering.
+//
+// USAGE
+// Maintains all information required for game initialization, updating,
+// and rendering within the game loop.
 typedef struct s_game
 {
 	void		*mlx;

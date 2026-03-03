@@ -15,6 +15,17 @@
 
 #include "cub3d.h"
 
+// MACROS: GAME CONFIGURATION
+// ---------------------------------------------------
+// This group of macros defines key configuration values used in Cub3D for map rendering
+// and player/environment interaction.
+//
+// - TILE            : The size of one map square in pixels. Determines scaling for rendering and movement.
+// - COLLISION_BUF   : A small buffer value to prevent the player from clipping into walls
+//                     or objects, used during collision detection.
+//
+// Usage: These macros are referenced when calculating player movement, wall collisions,
+// and rendering the map grid.
 #define TILE 58
 #define	COLLISION_BUF 0.1
 

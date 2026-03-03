@@ -14,6 +14,16 @@
 #include "parsing.h"
 #include "utils.h"
 
+// FUNCTION: check_rgb
+// ----------------------------
+// Validates that a string represents a properly formatted RGB color.
+// The string should contain only digits and commas, with exactly three components.
+//
+// PARAMETERS
+// line : The RGB string to validate (e.g., "255,128,0").
+//
+// RETURN VALUE
+// Returns EXIT_SUCCESS (0) if the string is valid, EXIT_FAILURE (1) otherwise.
 int	check_rgb(char	*line)
 {
 	int	i;
@@ -32,6 +42,16 @@ int	check_rgb(char	*line)
 	return (EXIT_SUCCESS);
 }
 
+// FUNCTION: parse_rgb
+// ----------------------------
+// Parses an RGB string and stores the combined color value in the provided integer.
+//
+// PARAMETERS
+// p_elem : Pointer to an integer to store the combined RGB color (0xRRGGBB).
+// elem   : Array of strings where elem[0] is the element name and elem[1] is the RGB string.
+//
+// RETURN VALUE
+// None. On failure, prints an error and exits the program.
 void	parse_rgb(int *p_elem, char **elem)
 {
 	char	**tmp;
@@ -60,6 +80,17 @@ void	parse_rgb(int *p_elem, char **elem)
 	(free(tmp[0]), free(tmp[1]), free(tmp[2]), free(tmp));
 }
 
+// FUNCTION: parse_img
+// ----------------------------
+// Loads a texture image from a file and stores its data in the provided t_img structure.
+//
+// PARAMETERS
+// game : Pointer to the game structure (contains mlx pointer for loading images).
+// img  : Pointer to the t_img pointer to initialize and store image data.
+// elem : Array of strings where elem[0] is the element name and elem[1] is the image file path.
+//
+// RETURN VALUE
+// None. On failure, prints an error and exits the program.
 void	parse_img(t_game *game, t_img **img, char **elem)
 {
 	int		width;
@@ -89,6 +120,17 @@ void	parse_img(t_game *game, t_img **img, char **elem)
 	free(tmp);
 }
 
+// FUNCTION: parse_elem
+// ----------------------------
+// Parses a single line of element definition from the map file. Determines whether
+// it is a texture or a color and calls the appropriate parsing function.
+//
+// PARAMETERS
+// game : Pointer to the game structure (stores textures and colors).
+// line : Line of the map file containing an element definition.
+//
+// RETURN VALUE
+// None. On failure, prints an error and exits the program.
 void	parse_elem(t_game *game, char *line)
 {
 	char	**element;
@@ -116,6 +158,16 @@ void	parse_elem(t_game *game, char *line)
 	(void)game;
 }
 
+// FUNCTION: check_elem
+// ----------------------------
+// Validates the format of a single element line. Ensures it contains exactly
+// one space separating two strings and that the element identifier is not too long.
+//
+// PARAMETERS
+// line : Line of the map file containing an element definition.
+//
+// RETURN VALUE
+// Returns EXIT_SUCCESS (0) if the element line is valid, EXIT_FAILURE (1) otherwise.
 int	check_elem(char	*line)
 {
 	char	**element;

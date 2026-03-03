@@ -17,20 +17,34 @@
 
 #include "cub3d.h"
 
-// Def
-
+// MACROS: FILE & IMAGE FORMATS
+// ---------------------------------------------------
+// This group of macros defines the expected file formats for maps and images in Cub3D.
+// They are used to validate file inputs and ensure the program only processes compatible files.
+//
+// - MAP_FORMAT : Expected extension for map files (".cub").
+// - IMG_FORMAT : Expected extension for image/texture files (".xpm").
+//
+// Usage: These macros are used during command-line argument checks and asset loading
+// to verify that files have correct formats.
 #define MAP_FORMAT	".cub"
 #define IMG_FORMAT	".xpm"
 
-// Error message
 
+// MACROS: ERROR MESSAGES
+// ---------------------------------------------------
+// This group of macros contains predefined error messages used throughout Cub3D
+// for initialization failures, memory allocation issues, argument validation, asset parsing,
+// and map/player-related errors. They help maintain consistent messaging and simplify
+// debugging.
+
+// Initialization / MLX errors
 #define ERR			"Error\n"
-
 #define MLX_MLX		"Unable to initialize MLX\n"
 #define MLX_WIN		"Unable to initialize MLX window\n"
 #define MLX_IMG		"Unable to initialize MLX image\n"
 #define SCREEN_SIZE	"Unable te receive the information about screen size\n"
-
+// Argument errors
 #define ARG_1		"Missing the argument, PATH to the map.\n"
 #define ARG_2		"The argumtent is not type .cub.\n"
 #define ARG_3		"Moo many arguments.\n"
